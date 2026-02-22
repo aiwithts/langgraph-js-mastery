@@ -1,0 +1,39 @@
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("../../lib/llm", () => ({
+	createLLM: vi.fn().mockReturnValue({
+		invoke: vi.fn().mockResolvedValue({ content: "Using hybrid retrieval, I found..." }),
+	}),
+}));
+
+vi.mock("../vector-store", () => ({
+	getRetriever: vi.fn().mockResolvedValue({
+		invoke: vi.fn().mockResolvedValue([
+			{ pageContent: "Nodes are functions that process state...", metadata: { topic: "nodes" } },
+			{ pageContent: "Edges connect nodes...", metadata: { topic: "edges" } },
+		]),
+	}),
+}));
+
+describe("Lesson 14: My Hybrid RAG Assistant", () => {
+	it("exports a valid module with config and createGraph", async () => {
+		const mod = await import("../index");
+		expect(mod.learn14AdvancedRAG.config.id).toBe("my-hybrid-rag-assistant");
+		expect(mod.learn14AdvancedRAG.createGraph).toBeInstanceOf(Function);
+	});
+
+	it("creates a compilable graph (complete Lesson 14 to pass this test)", async () => {
+		const mod = await import("../index");
+		const graph = mod.learn14AdvancedRAG.createGraph();
+		expect(graph).toBeDefined();
+	});
+
+	it("uses hybrid retrieval to answer questions", async () => {
+		const { HumanMessage } = await import("@langchain/core/messages");
+		const mod = await import("../index");
+		const graph = mod.learn14AdvancedRAG.createGraph();
+		const result = await graph.invoke({ messages: [new HumanMessage("How do nodes work?")] });
+		expect(result.messages.length).toBeGreaterThan(1);
+		expect(result.context).toBeTruthy();
+	});
+});

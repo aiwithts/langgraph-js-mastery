@@ -1,0 +1,26 @@
+{
+	"name": "langgraphjs-mastery",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Sandbox repo for the LangGraph.js Mastery course — build real AI systems with TypeScript",
+	"scripts": {
+		"dev": "pnpm db:start && pnpm --filter @langgraph/web dev",
+		"build": "pnpm --filter @langgraph/web build",
+		"test": "pnpm --filter @langgraph/web test",
+		"test:lessons": "pnpm --filter @langgraph/web test -- src/server/graphs",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"typecheck": "pnpm --filter @langgraph/web typecheck",
+		"db:start": "docker compose -f docker/docker-compose.yml up -d",
+		"db:stop": "docker compose -f docker/docker-compose.yml down",
+		"db:reset": "docker compose -f docker/docker-compose.yml down -v && pnpm db:start",
+		"db:logs": "docker compose -f docker/docker-compose.yml logs -f"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4"
+	},
+	"engines": {
+		"node": ">=20.0.0",
+		"pnpm": ">=9.0.0"
+	}
+}
