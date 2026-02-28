@@ -11,7 +11,7 @@ Build real AI systems that **think**, **remember**, and **act** — with LangGra
 ```bash
 git clone https://github.com/aiwithts/langgraphjs-mastery
 cd langgraphjs-mastery
-cp .env.example .env        # Add your API key(s)
+cp apps/web/.env.local.example apps/web/.env.local   # Add your API key(s)
 pnpm install
 pnpm dev
 ```
@@ -60,7 +60,7 @@ langgraphjs-mastery/
 │           └── learn-36-my-production-agent/
 ├── docker/
 │   └── docker-compose.yml            # PostgreSQL configuration
-├── .env.example                      # Environment template
+├── apps/web/.env.local.example       # Environment template
 └── README.md
 ```
 
@@ -88,7 +88,7 @@ langgraphjs-mastery/
 
 ## API Keys
 
-Add at least one to your `.env` file:
+Add at least one to your `apps/web/.env.local` file:
 
 | Key | Where to get it | Cost |
 |-----|----------------|------|
@@ -122,7 +122,7 @@ export function createGraph(checkpointer?: PostgresSaver) {
 
 ## Troubleshooting
 
-**"No LLM API key found"** — Add `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` to your `.env` file.
+**"No LLM API key found"** — Add `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` to `apps/web/.env.local`.
 
 **"Cannot connect to database"** — Run `pnpm db:start` (requires Docker).
 

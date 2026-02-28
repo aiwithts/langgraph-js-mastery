@@ -11,7 +11,7 @@
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
 		"typecheck": "pnpm --filter @langgraph/web typecheck",
-		"db:start": "docker compose -f docker/docker-compose.yml up -d",
+		"db:start": "docker compose -f docker/docker-compose.yml up -d --wait",
 		"db:stop": "docker compose -f docker/docker-compose.yml down",
 		"db:reset": "docker compose -f docker/docker-compose.yml down -v && pnpm db:start",
 		"db:logs": "docker compose -f docker/docker-compose.yml logs -f"
