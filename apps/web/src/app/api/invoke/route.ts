@@ -12,52 +12,48 @@ import { HumanMessage } from "@langchain/core/messages";
 import { v4 as uuidv4 } from "uuid"; // Used in TODO: generate message IDs
 import type { InvokeRequest, SSEEvent } from "@/types";
 import "@/server/graphs/index";
-import { getCheckpointer } from "@/server/lib/checkpointer";
 import { getGraph } from "@/server/lib/registry";
-import { ensureThread } from "@/server/lib/threads";
 
 export async function POST(req: Request) {
+	// Extract JSON body from request
 	const body = (await req.json()) as InvokeRequest;
 	const { graphId, threadId, message } = body;
 
+	// Basic body validation
 	if (!graphId || !threadId || !message) {
 		return Response.json({ error: "graphId, threadId and message are required" }, { status: 400 });
 	}
 
+	// Look up the graph by the provided id
 	const registeredGraph = getGraph(graphId);
 	if (!registeredGraph) {
 		return Response.json({ error: "Graph not found" }, { status: 404 });
 	}
 
+	// Create stream
 	const encoder = new TextEncoder();
 	const stream = new ReadableStream({
+
 		async start(controller) {
+			// Send helper
 			const send = (event: SSEEvent) =>
 				controller.enqueue(
 					encoder.encode(`event: ${event.type}\ndata: ${JSON.stringify(event)}\n\n`),
 				);
 
 			try {
-				const checkpointer = await getCheckpointer();
-				const graph = await registeredGraph.createGraph(checkpointer);
+				// Look up our registered graph
+				const graph = registeredGraph.createGraph();
+				const config = {};
 
-				await ensureThread(graphId, threadId);
-
-				const config = { configurable: { thread_id: threadId } };
+				// Compose input state (typeof MessagesAnnotation.State)
 				const input = { messages: [new HumanMessage(message)] };
 
-				// ─── TODO (L01): Call graph.invoke() and send SSE events ──────────────
-				//
-				// 1. Call graph.invoke(input, config) to run the graph
-				// 2. Extract the last message: result.messages.at(-1)
-				// 3. Send a 'message_complete' event:
-				//      send({ type: 'message_complete', id: uuidv4(), content, role: 'assistant' })
-				// 4. Send a 'done' event:
-				//      send({ type: 'done', threadId })
-				//
-				// Hint: cast the last message's content to string — content as string
-				//
-				// ─────────────────────────────────────────────────────────────────────
+				// TODO (Lesson 01, Step 2): Call graph.invoke() and send SSE events
+				// 1. Call graph.invoke(input, config) and store the result
+				// 2. Extract the last message from result.messages
+				// 3. Send a 'message_complete' event — include id, content (cast to string), and role: 'assistant'
+				// 4. Send a 'done' event — include threadId
 				throw new Error(
 					"Not implemented yet — complete Lesson 01 to build your first route!",
 				);
@@ -74,6 +70,7 @@ export async function POST(req: Request) {
 		},
 	});
 
+	// Pass stream in response
 	return new Response(stream, {
 		headers: {
 			"Content-Type": "text/event-stream",

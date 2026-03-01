@@ -10,7 +10,7 @@ describe("Lesson 01: Hello LangGraph", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
 		expect(mod.graph01HelloLanggraph.config.id).toBe("01-hello-langgraph");
-		expect(mod.graph01HelloLanggraph.config.name).toBe("My First Graph");
+		expect(mod.graph01HelloLanggraph.config.name).toBe("Hello LangGraph");
 		expect(mod.graph01HelloLanggraph.createGraph).toBeInstanceOf(Function);
 	});
 

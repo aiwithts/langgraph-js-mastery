@@ -7,13 +7,13 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 //   import { createLLM } from "../../lib/llm";
 //   import { ASSISTANT_PROMPT } from "./prompts";
 
-// TODO (Lesson 04, Step 2): Define SpecialityState
+// TODO (Lesson 04, Step 2, Task 2): Define SpecialtyState
 // Use Annotation.Root({ ...MessagesAnnotation.spec })
-// Add: speciality: Annotation<string> — reducer: (_, next) => next, default: () => "programming"
+// Add: specialty: Annotation<string> — reducer: (_, next) => next, default: () => "programming"
 
 // TODO (Lesson 04, Step 3): Define assistantNode
-// - Format ASSISTANT_PROMPT with { speciality: state.speciality, messages: state.messages }
-// - Invoke LLM with the formatted prompt
+// - Format ASSISTANT_PROMPT with { specialty: state.specialty, messages: state.messages }
+// - Invoke LLM with the formatted prompt and pass config as the second argument
 // - Return: { messages: [response] }
 
 // TODO (Lesson 04, Step 4): Build the graph

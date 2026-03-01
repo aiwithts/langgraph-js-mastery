@@ -149,6 +149,17 @@ export async function getThreadMessages(threadId: string): Promise<Message[]> {
 	return messages;
 }
 
+/**
+ * Ensure a thread with the given ID exists for a graph.
+ *
+ * If the thread already exists, its `updated_at` timestamp is refreshed and the
+ * existing row is returned. If it does not exist, a new row is inserted with
+ * the provided `threadId` and `graphId`.
+ *
+ * @param graphId - Identifier of the graph the thread belongs to.
+ * @param threadId - Stable identifier for the thread to ensure.
+ * @returns The ensured `Thread` record with ISO8601 timestamps.
+ */
 export async function ensureThread(graphId: string, threadId: string): Promise<Thread> {
 	await ensureInitialized();
 	const pool = await getPool();
