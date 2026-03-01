@@ -8,25 +8,25 @@ export interface CreateLLMConfig {
 	model?: string;
 }
 
+// TODO (Lesson 03): Implement the createLLM factory
+//
+// This shared utility is imported by every lesson that calls an LLM.
+// Implement it once here — all subsequent graphs use it via `createLLM()`.
+//
+// Steps:
+//   1. Destructure config: { temperature = 0.7, streaming = true, model } = config
+//      - temperature: controls randomness (0 = deterministic, 1 = creative)
+//      - streaming: enables token-by-token output (required for real-time delivery)
+//      - model: optional override; each provider has a sensible default
+//
+//   2. If process.env["OPENAI_API_KEY"] is set, return:
+//        new ChatOpenAI({ model: model ?? "gpt-4o-mini", temperature, streaming })
+//
+//   3. If process.env["ANTHROPIC_API_KEY"] is set, return:
+//        new ChatAnthropic({ model: model ?? "claude-3-5-haiku-latest", temperature, streaming })
+//
+//   4. If neither key is available, throw an Error telling the user to add a key to their .env file
+//
 export function createLLM(config: CreateLLMConfig = {}): BaseChatModel {
-	const { temperature = 0.7, streaming = true, model } = config;
-
-	if (process.env["OPENAI_API_KEY"]) {
-		return new ChatOpenAI({
-			model: model ?? "gpt-4o-mini",
-			temperature,
-			streaming,
-		});
-	}
-	if (process.env["ANTHROPIC_API_KEY"]) {
-		return new ChatAnthropic({
-			model: model ?? "claude-3-5-haiku-latest",
-			temperature,
-			streaming,
-		});
-	}
-
-	throw new Error(
-		"No LLM API key found. Set OPENAI_API_KEY or ANTHROPIC_API_KEY in your .env file.",
-	);
+	throw new Error("Not implemented — complete Lesson 03!");
 }
