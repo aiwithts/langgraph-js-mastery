@@ -4,4 +4,6 @@ export const config: GraphInfo = {
 	id: "18-human-in-the-loop",
 	name: "Interrupt and Approval Flow",
 	description: "Pauses execution with interrupt() for human approval before performing sensitive actions.",
+	endpoint: "/api/stream-hitl",
+	resumeEndpoint: "/api/resume",
 };

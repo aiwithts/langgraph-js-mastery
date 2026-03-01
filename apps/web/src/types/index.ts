@@ -6,6 +6,8 @@ export interface GraphInfo {
 	id: string;
 	name: string;
 	description: string;
+	endpoint: string;
+	resumeEndpoint?: string;
 }
 
 // ============================================
@@ -188,12 +190,14 @@ export type SSEEvent =
 // ============================================
 
 export interface InvokeRequest {
+	graphId: string;
 	threadId: string;
 	message: string;
 	config?: Record<string, unknown>;
 }
 
 export interface ResumeRequest {
+	graphId: string;
 	threadId: string;
 	response: IntentResponse;
 }

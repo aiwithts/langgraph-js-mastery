@@ -45,8 +45,9 @@
  * the UI to show an interactive component. The `resumeWithResponse()`
  * function sends the user's response back to continue the graph.
  *
- * @see src/server/lib/graph-runner.ts for server-side streaming
- * @see src/app/api/graphs/[id]/invoke/route.ts for HTTP/SSE setup
+ * @see src/app/api/invoke/route.ts — invoke endpoint (L01)
+ * @see src/app/api/stream/route.ts — streaming endpoint (L03)
+ * @see src/app/api/stream-hitl/route.ts — HITL endpoint (L18)
  */
 
 "use client";
@@ -63,6 +64,10 @@ import type {
 interface UseChatOptions {
 	/** The graph to invoke (from the dropdown) */
 	graphId: string | null;
+	/** Endpoint URL for sending messages (e.g. "/api/stream") */
+	endpoint: string | undefined;
+	/** Endpoint URL for resuming interrupted graphs (e.g. "/api/resume") */
+	resumeEndpoint?: string | undefined;
 	/** Thread ID for conversation persistence */
 	threadId: string | null;
 	/** Callback when a message is fully received */
@@ -83,7 +88,7 @@ interface UseChatOptions {
  * - `clearMessages` - Function to clear chat history
  * - `loadMessages` - Function to load existing messages
  */
-export function useChat({ graphId, threadId, onMessageComplete }: UseChatOptions) {
+export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessageComplete }: UseChatOptions) {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -95,12 +100,17 @@ export function useChat({ graphId, threadId, onMessageComplete }: UseChatOptions
 	threadIdRef.current = threadId;
 	const graphIdRef = useRef(graphId);
 	graphIdRef.current = graphId;
+	const endpointRef = useRef(endpoint);
+	endpointRef.current = endpoint;
+	const resumeEndpointRef = useRef(resumeEndpoint);
+	resumeEndpointRef.current = resumeEndpoint;
 
 	const sendMessage = useCallback(
 		async (content: string, overrideThreadId?: string) => {
 			const effectiveThreadId = overrideThreadId ?? threadIdRef.current;
 			const effectiveGraphId = graphIdRef.current;
-			if (!effectiveGraphId || !effectiveThreadId || !content.trim()) {
+			const effectiveEndpoint = endpointRef.current;
+			if (!effectiveGraphId || !effectiveThreadId || !effectiveEndpoint || !content.trim()) {
 				return;
 			}
 
@@ -135,13 +145,14 @@ export function useChat({ graphId, threadId, onMessageComplete }: UseChatOptions
 			abortControllerRef.current = new AbortController();
 
 			try {
-				const response = await fetch(`/api/graphs/${effectiveGraphId}/invoke`, {
+				const response = await fetch(effectiveEndpoint, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 						Accept: "text/event-stream",
 					},
 					body: JSON.stringify({
+						graphId: effectiveGraphId,
 						threadId: effectiveThreadId,
 						message: content.trim(),
 					}),
@@ -362,7 +373,8 @@ export function useChat({ graphId, threadId, onMessageComplete }: UseChatOptions
 	const resumeWithResponse = useCallback(async (response: IntentResponse) => {
 		const effectiveThreadId = threadIdRef.current;
 		const effectiveGraphId = graphIdRef.current;
-		if (!effectiveGraphId || !effectiveThreadId) {
+		const effectiveResumeEndpoint = resumeEndpointRef.current;
+		if (!effectiveGraphId || !effectiveThreadId || !effectiveResumeEndpoint) {
 			return;
 		}
 
@@ -385,13 +397,14 @@ export function useChat({ graphId, threadId, onMessageComplete }: UseChatOptions
 		abortControllerRef.current = new AbortController();
 
 		try {
-			const fetchResponse = await fetch(`/api/graphs/${effectiveGraphId}/resume`, {
+			const fetchResponse = await fetch(effectiveResumeEndpoint, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 					Accept: "text/event-stream",
 				},
 				body: JSON.stringify({
+					graphId: effectiveGraphId,
 					threadId: effectiveThreadId,
 					response,
 				}),

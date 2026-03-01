@@ -20,6 +20,9 @@ export function ChatContainer() {
 	// Fetch graphs
 	const { graphs, loading: graphsLoading, error: graphsError } = useGraphs();
 
+	// Resolve the selected graph's endpoint info
+	const selectedGraph = graphs.find((g) => g.id === selectedGraphId);
+
 	// Fetch latest thread for selected graph
 	const {
 		thread: latestThread,
@@ -50,6 +53,8 @@ export function ChatContainer() {
 		loadMessages,
 	} = useChat({
 		graphId: selectedGraphId,
+		endpoint: selectedGraph?.endpoint,
+		resumeEndpoint: selectedGraph?.resumeEndpoint,
 		threadId: currentThreadId,
 	});
 
