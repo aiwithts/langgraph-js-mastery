@@ -31,6 +31,7 @@
  * @see Lesson 01: Your first implementation of runGraph
  */
 
+import type { CompiledGraph, GraphConfig, GraphInput } from "@/server/types";
 import type { SSEEvent } from "@/types";
 
 /** Callback function to send an SSE event to the client */
@@ -60,17 +61,13 @@ export type SendEvent = (event: SSEEvent) => void;
 //
 // ─────────────────────────────────────────────────────────────────────────────
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function runGraph(
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	graph: any,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	input: any,
-	config: { configurable: { thread_id: string } },
+	graph: CompiledGraph,
+	input: GraphInput,
+	config: GraphConfig,
 	sendEvent: SendEvent,
 	threadId: string,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Promise<any> {
+): Promise<void> {
 	// TODO: Implement in Lesson 01
 	throw new Error("Not implemented yet — complete Lesson 01 to build your first graph runner!");
 }
@@ -86,15 +83,12 @@ export async function runGraph(
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function resumeGraph(
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	graph: any,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	response: any,
-	config: { configurable: { thread_id: string } },
+	graph: CompiledGraph,
+	response: unknown,
+	config: GraphConfig,
 	sendEvent: SendEvent,
 	threadId: string,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Promise<any> {
+): Promise<void> {
 	// TODO: Implement in Lesson 18
 	throw new Error("Not implemented yet — complete Lesson 18 to add human-in-the-loop support!");
 }

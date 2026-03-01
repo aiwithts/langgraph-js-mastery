@@ -25,6 +25,7 @@
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SSEEvent } from "@/types";
+import type { CompiledGraph } from "@/server/types";
 import type { SendEvent } from "../graph-runner";
 import { resumeGraph, runGraph } from "../graph-runner";
 
@@ -57,7 +58,7 @@ function createInvokeGraph(responseContent: string) {
 		})),
 		stream: vi.fn(),
 		getState: vi.fn(),
-	};
+	} as unknown as CompiledGraph;
 }
 
 /** Creates a mock graph that streams tokens via stream() */
@@ -71,7 +72,7 @@ function createStreamingGraph(tokens: string[]) {
 			}
 		}),
 		getState: vi.fn(async () => ({ values: {}, tasks: [] })),
-	};
+	} as unknown as CompiledGraph;
 }
 
 /** Creates a mock graph that streams tokens in combined mode */
@@ -93,7 +94,7 @@ function createCombinedModeGraph(
 			}
 		}),
 		getState: vi.fn(async () => ({ values: {}, tasks: [] })),
-	};
+	} as unknown as CompiledGraph;
 }
 
 /** Creates a mock graph that interrupts */
@@ -113,7 +114,7 @@ function createInterruptGraph(tokens: string[], interruptValue: unknown) {
 				},
 			],
 		})),
-	};
+	} as unknown as CompiledGraph;
 }
 
 /** Creates a mock graph with display intents in final state */
@@ -129,7 +130,7 @@ function createDisplayIntentGraph(tokens: string[], intents: Array<Record<string
 			values: { displayIntents: intents },
 			tasks: [],
 		})),
-	};
+	} as unknown as CompiledGraph;
 }
 
 // ─── Test Config ────────────────────────────────────────────────────────────
@@ -221,7 +222,7 @@ describe("L03: Token Streaming (graph.stream)", () => {
 
 		await runGraph(graph, { messages: [] }, testConfig, mock.sendEvent, testThreadId);
 
-		const streamCall = (graph.stream.mock.calls as any[])[0];
+		const streamCall = (vi.mocked(graph.stream).mock.calls as any[])[0];
 		const streamConfig = streamCall[1] as any;
 		// Accept either 'messages' or ['messages', ...] (V4 uses combined mode)
 		const streamMode = streamConfig.streamMode;
@@ -287,7 +288,7 @@ describe("L03: Token Streaming (graph.stream)", () => {
 
 		await runGraph(graph, { messages: [] }, testConfig, mock.sendEvent, testThreadId);
 
-		const streamCall = (graph.stream.mock.calls as any[])[0];
+		const streamCall = (vi.mocked(graph.stream).mock.calls as any[])[0];
 		const streamConfig = streamCall[1] as any;
 		expect(streamConfig.configurable.thread_id).toBe("test-thread-123");
 	});
@@ -357,7 +358,7 @@ describe("L18: Interrupt Handling", () => {
 	it("should NOT send interrupt when graph completes normally", async () => {
 		const graph = createStreamingGraph(["Normal", " response"]);
 		// Override getState to return no interrupts
-		graph.getState = vi.fn(async () => ({ values: {}, tasks: [] }));
+		(graph as unknown as { getState: unknown }).getState = vi.fn(async () => ({ values: {}, tasks: [] }));
 		const mock = createMockSendEvent();
 
 		await runGraph(graph, { messages: [] }, testConfig, mock.sendEvent, testThreadId);
@@ -382,7 +383,7 @@ describe("L26: Custom Events (Generative UI)", () => {
 
 		await runGraph(graph, { messages: [] }, testConfig, mock.sendEvent, testThreadId);
 
-		const streamCall = (graph.stream.mock.calls as any[])[0];
+		const streamCall = (vi.mocked(graph.stream).mock.calls as any[])[0];
 		const streamConfig = streamCall[1] as any;
 		expect(Array.isArray(streamConfig.streamMode)).toBe(true);
 		expect(streamConfig.streamMode).toContain("messages");
@@ -460,7 +461,7 @@ describe("L30: Display Intents", () => {
 
 	it("should NOT include displayIntents when none exist in state", async () => {
 		const graph = createStreamingGraph(["Hello"]);
-		graph.getState = vi.fn(async () => ({ values: {}, tasks: [] }));
+		(graph as unknown as { getState: unknown }).getState = vi.fn(async () => ({ values: {}, tasks: [] }));
 		const mock = createMockSendEvent();
 
 		await runGraph(graph, { messages: [] }, testConfig, mock.sendEvent, testThreadId);
