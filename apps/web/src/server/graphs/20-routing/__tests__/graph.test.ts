@@ -9,24 +9,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 20: Service Router", () => {
+describe("Intent Classifier and Router", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn20Routing.config.id).toBe("learn-20-routing");
-		expect(mod.learn20Routing.config.name).toBe("Service Router");
-		expect(mod.learn20Routing.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph20Routing.config.id).toBe("20-routing");
+		expect(mod.graph20Routing.config.name).toBe("Intent Classifier and Router");
+		expect(mod.graph20Routing.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 20 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn20Routing.createGraph();
+		const graph = await mod.graph20Routing.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("classifies and routes a billing question to the billing handler", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn20Routing.createGraph();
+		const graph = await mod.graph20Routing.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("I was double charged on my credit card")],
 		});

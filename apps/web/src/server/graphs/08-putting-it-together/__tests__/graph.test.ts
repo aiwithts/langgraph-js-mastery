@@ -9,23 +9,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 08: Swiss Army Knife", () => {
+describe("Lesson 08: Swiss Army Knife Assistant", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn08MySwissArmyKnife.config.id).toBe("learn-08-swiss-army-knife");
-		expect(mod.learn08MySwissArmyKnife.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph08PuttingItTogether.config.id).toBe("08-putting-it-together");
+		expect(mod.graph08PuttingItTogether.config.name).toBe("Swiss Army Knife Assistant");
+		expect(mod.graph08PuttingItTogether.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 08 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn08MySwissArmyKnife.createGraph();
+		const graph = await mod.graph08PuttingItTogether.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("classifies and routes a question to explain mode", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn08MySwissArmyKnife.createGraph();
+		const graph = await mod.graph08PuttingItTogether.createGraph();
 		const result = await graph.invoke({ messages: [new HumanMessage("What is a closure?")] });
 		expect(result.messages.length).toBeGreaterThan(1);
 	});

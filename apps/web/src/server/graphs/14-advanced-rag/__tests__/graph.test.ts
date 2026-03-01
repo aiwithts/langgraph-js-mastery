@@ -15,23 +15,23 @@ vi.mock("../vector-store", () => ({
 	}),
 }));
 
-describe("Lesson 14: My Hybrid RAG Assistant", () => {
+describe("Hybrid Retrieval RAG Assistant", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn14AdvancedRAG.config.id).toBe("my-hybrid-rag-assistant");
-		expect(mod.learn14AdvancedRAG.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph14AdvancedRag.config.id).toBe("14-advanced-rag");
+		expect(mod.graph14AdvancedRag.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 14 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn14AdvancedRAG.createGraph();
+		const graph = await mod.graph14AdvancedRag.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("uses hybrid retrieval to answer questions", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn14AdvancedRAG.createGraph();
+		const graph = await mod.graph14AdvancedRag.createGraph();
 		const result = await graph.invoke({ messages: [new HumanMessage("How do nodes work?")] });
 		expect(result.messages.length).toBeGreaterThan(1);
 		expect(result.context).toBeTruthy();

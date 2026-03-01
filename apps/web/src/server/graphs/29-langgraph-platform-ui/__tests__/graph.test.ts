@@ -8,24 +8,24 @@ vi.mock("@langchain/langgraph/remote", () => ({
 	}),
 }));
 
-describe("Lesson 29: My Platform Graph", () => {
+describe("LangGraph Platform UI", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn29MyPlatformGraph.config.id).toBe("learn-29-my-platform-graph");
-		expect(mod.learn29MyPlatformGraph.config.name).toBe("My Platform Graph");
-		expect(mod.learn29MyPlatformGraph.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph29LanggraphPlatformUi.config.id).toBe("29-langgraph-platform-ui");
+		expect(mod.graph29LanggraphPlatformUi.config.name).toBe("LangGraph Platform UI");
+		expect(mod.graph29LanggraphPlatformUi.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 29 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn29MyPlatformGraph.createGraph();
+		const graph = await mod.graph29LanggraphPlatformUi.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("delegates to the remote graph and returns messages", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn29MyPlatformGraph.createGraph();
+		const graph = await mod.graph29LanggraphPlatformUi.createGraph();
 		const result = await graph.invoke({ messages: [new HumanMessage("Hello!")] });
 		expect(result.messages.length).toBeGreaterThan(0);
 	});

@@ -6,24 +6,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 21: My Composed System", () => {
+describe("Modular Subgraph Composition", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn21MyComposedSystem.config.id).toBe("learn-21-my-composed-system");
-		expect(mod.learn21MyComposedSystem.config.name).toBe("My Composed System");
-		expect(mod.learn21MyComposedSystem.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph21Subgraphs.config.id).toBe("21-subgraphs");
+		expect(mod.graph21Subgraphs.config.name).toBe("Modular Subgraph Composition");
+		expect(mod.graph21Subgraphs.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 21 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn21MyComposedSystem.createGraph();
+		const graph = await mod.graph21Subgraphs.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("orchestrates a subgraph to process the input", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn21MyComposedSystem.createGraph();
+		const graph = await mod.graph21Subgraphs.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("Summarize the benefits of TypeScript")],
 		});

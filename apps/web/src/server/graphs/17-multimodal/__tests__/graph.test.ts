@@ -6,24 +6,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 17: My Vision Agent", () => {
+describe("Vision Analysis Agent", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn17MyVisionAgent.config.id).toBe("learn-17-my-vision-agent");
-		expect(mod.learn17MyVisionAgent.config.name).toBe("My Vision Agent");
-		expect(mod.learn17MyVisionAgent.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph17Multimodal.config.id).toBe("17-multimodal");
+		expect(mod.graph17Multimodal.config.name).toBe("Vision Analysis Agent");
+		expect(mod.graph17Multimodal.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 17 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn17MyVisionAgent.createGraph();
+		const graph = await mod.graph17Multimodal.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("processes a text message about an image", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn17MyVisionAgent.createGraph();
+		const graph = await mod.graph17Multimodal.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("What do you see in this image?")],
 		});

@@ -9,23 +9,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 07: My Extractor", () => {
+describe("Lesson 07: Data Extractor", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn07MyExtractor.config.id).toBe("my-extractor");
-		expect(mod.learn07MyExtractor.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph07StructuredOutput.config.id).toBe("07-structured-output");
+		expect(mod.graph07StructuredOutput.config.name).toBe("Data Extractor");
+		expect(mod.graph07StructuredOutput.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 07 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn07MyExtractor.createGraph();
+		const graph = await mod.graph07StructuredOutput.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("extracts structured data from text", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn07MyExtractor.createGraph();
+		const graph = await mod.graph07StructuredOutput.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("Contact John at john@example.com")],
 		});

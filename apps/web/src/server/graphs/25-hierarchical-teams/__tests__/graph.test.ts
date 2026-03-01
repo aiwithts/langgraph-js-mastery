@@ -12,24 +12,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 25: My Product Team", () => {
+describe("Director and Team Leads", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn25MyProductTeam.config.id).toBe("learn-25-my-product-team");
-		expect(mod.learn25MyProductTeam.config.name).toBe("My Product Team");
-		expect(mod.learn25MyProductTeam.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph25HierarchicalTeams.config.id).toBe("25-hierarchical-teams");
+		expect(mod.graph25HierarchicalTeams.config.name).toBe("Director and Team Leads");
+		expect(mod.graph25HierarchicalTeams.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 25 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn25MyProductTeam.createGraph();
+		const graph = await mod.graph25HierarchicalTeams.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("coordinates team leads and produces a final product brief", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn25MyProductTeam.createGraph();
+		const graph = await mod.graph25HierarchicalTeams.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("Build a new AI-powered development tool")],
 		});

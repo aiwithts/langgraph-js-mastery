@@ -17,24 +17,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 24: My Code Improver", () => {
+describe("Code Generator With Feedback Loop", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn24MyCodeImprover.config.id).toBe("learn-24-my-code-improver");
-		expect(mod.learn24MyCodeImprover.config.name).toBe("My Code Improver");
-		expect(mod.learn24MyCodeImprover.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph24EvaluatorOptimizer.config.id).toBe("24-evaluator-optimizer");
+		expect(mod.graph24EvaluatorOptimizer.config.name).toBe("Code Generator With Feedback Loop");
+		expect(mod.graph24EvaluatorOptimizer.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 24 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn24MyCodeImprover.createGraph();
+		const graph = await mod.graph24EvaluatorOptimizer.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("iterates to improve the solution above the quality threshold", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn24MyCodeImprover.createGraph();
+		const graph = await mod.graph24EvaluatorOptimizer.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("Write a function to add two numbers")],
 		});

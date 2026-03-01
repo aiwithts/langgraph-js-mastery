@@ -9,24 +9,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 22: My Parallel Processor", () => {
+describe("Parallel Map-Reduce Processor", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn22MyParallelProcessor.config.id).toBe("learn-22-my-parallel-processor");
-		expect(mod.learn22MyParallelProcessor.config.name).toBe("My Parallel Processor");
-		expect(mod.learn22MyParallelProcessor.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph22ParallelPatterns.config.id).toBe("22-parallel-patterns");
+		expect(mod.graph22ParallelPatterns.config.name).toBe("Parallel Map-Reduce Processor");
+		expect(mod.graph22ParallelPatterns.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 22 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn22MyParallelProcessor.createGraph();
+		const graph = await mod.graph22ParallelPatterns.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("fans out to process items in parallel and aggregates results", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn22MyParallelProcessor.createGraph();
+		const graph = await mod.graph22ParallelPatterns.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("Process these items: apple, banana, cherry")],
 		});

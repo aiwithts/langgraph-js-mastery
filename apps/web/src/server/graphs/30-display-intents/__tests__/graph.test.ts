@@ -9,29 +9,27 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 30: My Weather Assistant", () => {
+describe("Weather Display Intent Agent", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn30MyWeatherAssistant.config.id).toBe("learn-30-my-weather-assistant");
-		expect(mod.learn30MyWeatherAssistant.config.name).toBe("My Weather Assistant");
-		expect(mod.learn30MyWeatherAssistant.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph30DisplayIntents.config.id).toBe("30-display-intents");
+		expect(mod.graph30DisplayIntents.config.name).toBe("Weather Display Intent Agent");
+		expect(mod.graph30DisplayIntents.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 30 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn30MyWeatherAssistant.createGraph();
+		const graph = await mod.graph30DisplayIntents.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("fetches weather data and dispatches a WeatherCard UI event", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
-		const uiEvents: unknown[] = [];
 		const mod = await import("../index");
-		const graph = mod.learn30MyWeatherAssistant.createGraph();
-		const result = await graph.invoke(
-			{ messages: [new HumanMessage("What's the weather in London?")] },
-			{ writer: (event: unknown) => uiEvents.push(event) },
-		);
+		const graph = await mod.graph30DisplayIntents.createGraph();
+		const result = await graph.invoke({
+			messages: [new HumanMessage("What's the weather in London?")],
+		});
 		expect(result.messages.length).toBeGreaterThan(1);
 	});
 });

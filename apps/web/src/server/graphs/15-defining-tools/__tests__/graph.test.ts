@@ -9,24 +9,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 15: My Tool Kit", () => {
+describe("Custom Tool Agent", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn15MyToolKit.config.id).toBe("learn-15-my-tool-kit");
-		expect(mod.learn15MyToolKit.config.name).toBe("My Tool Kit");
-		expect(mod.learn15MyToolKit.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph15DefiningTools.config.id).toBe("15-defining-tools");
+		expect(mod.graph15DefiningTools.config.name).toBe("Custom Tool Agent");
+		expect(mod.graph15DefiningTools.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 15 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn15MyToolKit.createGraph();
+		const graph = await mod.graph15DefiningTools.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("invokes agent with tools and returns a response", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn15MyToolKit.createGraph();
+		const graph = await mod.graph15DefiningTools.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("What is 6 * 7?")],
 		});

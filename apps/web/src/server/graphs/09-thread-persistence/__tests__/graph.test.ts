@@ -9,23 +9,23 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 09: My Memory Tester", () => {
+describe("Persistent Memory Tester", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn09MyMemoryTester.config.id).toBe("my-memory-tester");
-		expect(mod.learn09MyMemoryTester.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph09ThreadPersistence.config.id).toBe("09-thread-persistence");
+		expect(mod.graph09ThreadPersistence.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 09 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn09MyMemoryTester.createGraph();
+		const graph = await mod.graph09ThreadPersistence.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("extracts facts and responds with message numbering", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn09MyMemoryTester.createGraph();
+		const graph = await mod.graph09ThreadPersistence.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("Hi! I'm Alice and I love TypeScript.")],
 		});

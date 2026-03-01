@@ -6,17 +6,17 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 18: My Approval Flow", () => {
+describe("Interrupt and Approval Flow", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn18MyApprovalFlow.config.id).toBe("learn-18-my-approval-flow");
-		expect(mod.learn18MyApprovalFlow.config.name).toBe("My Approval Flow");
-		expect(mod.learn18MyApprovalFlow.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph18HumanInTheLoop.config.id).toBe("18-human-in-the-loop");
+		expect(mod.graph18HumanInTheLoop.config.name).toBe("Interrupt and Approval Flow");
+		expect(mod.graph18HumanInTheLoop.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 18 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn18MyApprovalFlow.createGraph();
+		const graph = await mod.graph18HumanInTheLoop.createGraph();
 		expect(graph).toBeDefined();
 	});
 
@@ -26,7 +26,7 @@ describe("Lesson 18: My Approval Flow", () => {
 		// With a checkpointer, the graph would pause at interrupt().
 		// Without one, the graph will throw a GraphInterrupt or similar.
 		// This test verifies the graph initializes correctly.
-		const graph = mod.learn18MyApprovalFlow.createGraph();
+		const graph = await mod.graph18HumanInTheLoop.createGraph();
 		expect(graph).toBeDefined();
 	});
 });

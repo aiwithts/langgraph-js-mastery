@@ -6,23 +6,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 06: My Multi-Mode Assistant", () => {
+describe("Lesson 06: Multi-Mode Prompt Assistant", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn06MyMultiModeAssistant.config.id).toBe("my-multi-mode-assistant");
-		expect(mod.learn06MyMultiModeAssistant.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph06TemplateComposition.config.id).toBe("06-template-composition");
+		expect(mod.graph06TemplateComposition.config.name).toBe("Multi-Mode Prompt Assistant");
+		expect(mod.graph06TemplateComposition.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 06 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn06MyMultiModeAssistant.createGraph();
+		const graph = await mod.graph06TemplateComposition.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("routes code questions to code mode", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn06MyMultiModeAssistant.createGraph();
+		const graph = await mod.graph06TemplateComposition.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("Write a TypeScript function to sort an array")],
 		});

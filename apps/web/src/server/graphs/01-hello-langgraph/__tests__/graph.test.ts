@@ -16,14 +16,14 @@ describe("Lesson 01: Hello LangGraph", () => {
 
 	it("creates a compilable graph (complete Lesson 01 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.graph01HelloLanggraph.createGraph();
+		const graph = await mod.graph01HelloLanggraph.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("processes a message and returns a greeting", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.graph01HelloLanggraph.createGraph();
+		const graph = await mod.graph01HelloLanggraph.createGraph();
 		const result = await graph.invoke({ messages: [new HumanMessage("Hello!")] });
 		expect(result.messages.length).toBeGreaterThan(1);
 		expect(result.messages.at(-1).content).toContain("Hello!");

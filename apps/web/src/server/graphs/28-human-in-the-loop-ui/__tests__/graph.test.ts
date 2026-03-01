@@ -6,17 +6,17 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 28: My Approval UI", () => {
+describe("Approval UI Assistant", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn28MyApprovalUi.config.id).toBe("learn-28-my-approval-ui");
-		expect(mod.learn28MyApprovalUi.config.name).toBe("My Approval UI");
-		expect(mod.learn28MyApprovalUi.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph28HumanInTheLoopUi.config.id).toBe("28-human-in-the-loop-ui");
+		expect(mod.graph28HumanInTheLoopUi.config.name).toBe("Approval UI Assistant");
+		expect(mod.graph28HumanInTheLoopUi.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 28 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn28MyApprovalUi.createGraph();
+		const graph = await mod.graph28HumanInTheLoopUi.createGraph();
 		expect(graph).toBeDefined();
 	});
 
@@ -24,7 +24,7 @@ describe("Lesson 28: My Approval UI", () => {
 		// Note: With a real checkpointer, this would pause at interrupt().
 		// This test verifies the graph structure is valid.
 		const mod = await import("../index");
-		const graph = mod.learn28MyApprovalUi.createGraph();
+		const graph = await mod.graph28HumanInTheLoopUi.createGraph();
 		expect(graph).toBeDefined();
 	});
 });

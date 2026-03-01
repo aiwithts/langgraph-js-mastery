@@ -16,23 +16,23 @@ vi.mock("@langchain/mcp-adapters", () => ({
 	}),
 }));
 
-describe("Lesson 16: ReAct Agent", () => {
+describe("ReAct Reasoning Agent", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn16ReactAgent.config.id).toBe("learn-16-react-agent");
-		expect(mod.learn16ReactAgent.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph16ReactAgent.config.id).toBe("16-react-agent");
+		expect(mod.graph16ReactAgent.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 16 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = await mod.learn16ReactAgent.createGraph();
+		const graph = await mod.graph16ReactAgent.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("processes a question using the ReAct loop", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = await mod.learn16ReactAgent.createGraph();
+		const graph = await mod.graph16ReactAgent.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("What is the population of Tokyo?")],
 		});

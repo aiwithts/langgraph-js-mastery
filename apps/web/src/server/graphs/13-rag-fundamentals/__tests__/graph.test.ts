@@ -14,23 +14,23 @@ vi.mock("../vector-store", () => ({
 	}),
 }));
 
-describe("Lesson 13: My RAG Assistant", () => {
+describe("Knowledge-Augmented RAG Assistant", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn13RAGFundamentalsModule.config.id).toBe("my-rag-assistant");
-		expect(mod.learn13RAGFundamentalsModule.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph13RagFundamentals.config.id).toBe("13-rag-fundamentals");
+		expect(mod.graph13RagFundamentals.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 13 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn13RAGFundamentalsModule.createGraph();
+		const graph = await mod.graph13RagFundamentals.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("retrieves context and generates a grounded answer", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn13RAGFundamentalsModule.createGraph();
+		const graph = await mod.graph13RagFundamentals.createGraph();
 		const result = await graph.invoke({ messages: [new HumanMessage("What is a StateGraph?")] });
 		expect(result.messages.length).toBeGreaterThan(1);
 		expect(result.context).toBeTruthy();

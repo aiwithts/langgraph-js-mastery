@@ -13,24 +13,24 @@ vi.mock("@langchain/openai", () => ({
 	}),
 }));
 
-describe("Lesson 11: My Example Selector", () => {
+describe("Semantic Example Selector", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn11MyExampleSelectorModule.config.id).toBe("learn-11-my-example-selector");
-		expect(mod.learn11MyExampleSelectorModule.config.name).toBe("My Example Selector");
-		expect(mod.learn11MyExampleSelectorModule.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph11EmbeddingsSimilarity.config.id).toBe("11-embeddings-similarity");
+		expect(mod.graph11EmbeddingsSimilarity.config.name).toBe("Semantic Example Selector");
+		expect(mod.graph11EmbeddingsSimilarity.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 11 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn11MyExampleSelectorModule.createGraph();
+		const graph = await mod.graph11EmbeddingsSimilarity.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("selects relevant examples and responds with proper formatting", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn11MyExampleSelectorModule.createGraph();
+		const graph = await mod.graph11EmbeddingsSimilarity.createGraph();
 		const result = await graph.invoke({ messages: [new HumanMessage("What is recursion?")] });
 		expect(result.messages.length).toBeGreaterThan(1);
 		expect(result.selectedExamples).toHaveLength(2);

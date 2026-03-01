@@ -13,24 +13,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 23: My Research Team", () => {
+describe("Multi-Agent Orchestrator", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn23MyResearchTeam.config.id).toBe("learn-23-my-research-team");
-		expect(mod.learn23MyResearchTeam.config.name).toBe("My Research Team");
-		expect(mod.learn23MyResearchTeam.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph23OrchestratorWorker.config.id).toBe("23-orchestrator-worker");
+		expect(mod.graph23OrchestratorWorker.config.name).toBe("Multi-Agent Orchestrator");
+		expect(mod.graph23OrchestratorWorker.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 23 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn23MyResearchTeam.createGraph();
+		const graph = await mod.graph23OrchestratorWorker.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("supervisor routes to workers and produces a final report", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn23MyResearchTeam.createGraph();
+		const graph = await mod.graph23OrchestratorWorker.createGraph();
 		const result = await graph.invoke({
 			messages: [new HumanMessage("Research the history of LangGraph")],
 		});

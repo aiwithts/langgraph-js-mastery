@@ -6,24 +6,24 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 33: My Resilient Agent", () => {
+describe("Resilient Chat Agent", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.learn33MyResilientAgent.config.id).toBe("learn-33-my-resilient-agent");
-		expect(mod.learn33MyResilientAgent.config.name).toBe("My Resilient Agent");
-		expect(mod.learn33MyResilientAgent.createGraph).toBeInstanceOf(Function);
+		expect(mod.graph33ErrorHandling.config.id).toBe("33-error-handling");
+		expect(mod.graph33ErrorHandling.config.name).toBe("Resilient Chat Agent");
+		expect(mod.graph33ErrorHandling.createGraph).toBeInstanceOf(Function);
 	});
 
 	it("creates a compilable graph (complete Lesson 33 to pass this test)", async () => {
 		const mod = await import("../index");
-		const graph = mod.learn33MyResilientAgent.createGraph();
+		const graph = await mod.graph33ErrorHandling.createGraph();
 		expect(graph).toBeDefined();
 	});
 
 	it("handles a successful request", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
-		const graph = mod.learn33MyResilientAgent.createGraph();
+		const graph = await mod.graph33ErrorHandling.createGraph();
 		const result = await graph.invoke({ messages: [new HumanMessage("Hello!")] });
 		expect(result.messages.length).toBeGreaterThan(1);
 		expect(result.lastError).toBeNull();
