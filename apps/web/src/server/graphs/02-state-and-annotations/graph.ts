@@ -1,3 +1,4 @@
+import type { CompiledGraph } from "../../types";
 import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 02, Step 1): Add your imports
@@ -33,7 +34,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 //   .addEdge("process", "complete")
 //   .addEdge("complete", END)
 
-export function createGraph(checkpointer?: PostgresSaver) {
+export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 02, Step 5): Compile and return
 	throw new Error("Not implemented — complete Lesson 02!");
 }

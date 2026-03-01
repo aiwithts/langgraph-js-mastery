@@ -1,3 +1,4 @@
+import type { CompiledGraph } from "../../types";
 import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 10, Step 1): Add your imports
@@ -35,7 +36,7 @@ export function shouldSummarize(state: { messages: unknown[] }): "summarize" | "
 // Use addConditionalEdges(START, shouldSummarize, { summarize: "summarize", chat: "chat" })
 // summarize → chat, chat → END
 
-export function createGraph(checkpointer?: PostgresSaver) {
+export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 10, Step 7): Compile and return
 	throw new Error("Not implemented — complete Lesson 10!");
 }

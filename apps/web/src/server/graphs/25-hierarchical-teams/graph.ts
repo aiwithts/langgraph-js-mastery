@@ -1,3 +1,4 @@
+import type { CompiledGraph } from "../../types";
 import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 25, Step 1): Add your imports
@@ -48,7 +49,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // Option B (parallel): Use Send API to call design, engineering, marketing in parallel
 // Start with sequential (simpler), then try parallel as a bonus
 
-export function createGraph(checkpointer?: PostgresSaver) {
+export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 25, Step 7): Compile and return
 	throw new Error("Not implemented — complete Lesson 25!");
 }

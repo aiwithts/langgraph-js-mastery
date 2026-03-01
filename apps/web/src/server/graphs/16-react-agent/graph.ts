@@ -1,3 +1,4 @@
+import type { CompiledGraph } from "../../types";
 import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 16, Step 1): Add your imports
@@ -42,7 +43,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // Get MCP tools, create ToolNode with all tools
 // START → agent → (shouldContinue) → tools ↩ agent | end → END
 
-export async function createGraph(checkpointer?: PostgresSaver) {
+export async function createGraph(checkpointer?: PostgresSaver): Promise<CompiledGraph> {
 	// TODO (Lesson 16, Step 8): Compile and return
 	throw new Error("Not implemented — complete Lesson 16!");
 }

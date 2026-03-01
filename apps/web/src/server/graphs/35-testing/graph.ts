@@ -1,3 +1,4 @@
+import type { CompiledGraph } from "../../types";
 import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 35, Step 1): Add your imports
@@ -42,7 +43,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // If deps not provided, use defaultDeps
 // START → agent → validateOutput → END
 
-export function createGraph(checkpointer?: PostgresSaver) {
+export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 35, Step 6): Compile with injected dependencies
 	throw new Error("Not implemented — complete Lesson 35!");
 }

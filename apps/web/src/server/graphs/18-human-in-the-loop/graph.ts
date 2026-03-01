@@ -1,3 +1,4 @@
+import type { CompiledGraph } from "../../types";
 import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 18, Step 1): Add your imports
@@ -38,7 +39,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // START → plan → humanApproval → execute → END
 // Note: humanApproval uses Command to update state, so it connects directly to execute
 
-export function createGraph(checkpointer?: PostgresSaver) {
+export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 18, Step 8): Compile with checkpointer (required for interrupt to work!)
 	throw new Error("Not implemented — complete Lesson 18!");
 }
