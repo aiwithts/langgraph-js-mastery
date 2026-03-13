@@ -1,7 +1,7 @@
 "use client";
 
-import { AlertCircle } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GraphSelector } from "@/components/GraphSelector";
 import { InteractiveIntentHandler } from "@/components/intents";
 import { ThreadControls } from "@/components/ThreadControls";
@@ -16,6 +16,20 @@ import { MessageList } from "./MessageList";
 export function ChatContainer() {
 	const [selectedGraphId, setSelectedGraphId] = useState<string | null>(null);
 	const [currentThreadId, setCurrentThreadId] = useState<string | null>(null);
+	const [isServerReady, setIsServerReady] = useState(false);
+	const warmupCalledRef = useRef(false);
+
+	// Pre-warm the server on mount: compiles route modules + initialises the DB
+	// pool, checkpointer tables, and threads table in the background.
+	// This avoids the 20-40 s cold-start hit when the user sends their first message.
+	useEffect(() => {
+		if (warmupCalledRef.current) return;
+		warmupCalledRef.current = true;
+
+		fetch("/api/warmup")
+			.then(() => setIsServerReady(true))
+			.catch(() => setIsServerReady(true)); // Don't block on warmup failure
+	}, []);
 
 	// Fetch graphs
 	const { graphs, loading: graphsLoading, error: graphsError } = useGraphs();
@@ -154,6 +168,12 @@ export function ChatContainer() {
 						disabled={!selectedGraphId}
 					/>
 				</div>
+				{!isServerReady && !graphsLoading && (
+					<div className="flex items-center gap-2 text-muted-foreground text-sm mt-2">
+						<Loader2 className="h-3 w-3 animate-spin" />
+						<span>Warming up server routes…</span>
+					</div>
+				)}
 				{graphsError && (
 					<div className="flex items-center gap-2 text-destructive text-sm mt-2">
 						<AlertCircle className="h-4 w-4" />
@@ -183,9 +203,11 @@ export function ChatContainer() {
 					placeholder={
 						!selectedGraphId
 							? "Select a graph to start chatting..."
-							: pendingIntent
-								? "Please respond to the prompt above..."
-								: "Type a message..."
+							: !isServerReady
+								? "Warming up server routes, please wait..."
+								: pendingIntent
+									? "Please respond to the prompt above..."
+									: "Type a message..."
 					}
 				/>
 			</CardContent>

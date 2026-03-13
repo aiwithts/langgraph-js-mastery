@@ -30,8 +30,17 @@ export async function POST(req: Request) {
 		return Response.json({ error: "Graph not found" }, { status: 404 });
 	}
 
-	// Create stream
+	// TextEncoder converts JavaScript strings into Uint8Array bytes so they can
+	// be written into a binary stream. SSE frames are plain text, but the
+	// ReadableStream controller only accepts binary chunks.
+	// MDN: https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder
 	const encoder = new TextEncoder();
+
+	// ReadableStream is the Web Streams API primitive for push-based streaming.
+	// The `start(controller)` callback runs immediately; call controller.enqueue()
+	// to push chunks and controller.close() when finished. Next.js returns this
+	// stream directly to the browser, keeping the HTTP connection open until close().
+	// MDN: https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream
 	const stream = new ReadableStream({
 
 		async start(controller) {
