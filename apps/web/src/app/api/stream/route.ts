@@ -12,7 +12,7 @@ import { HumanMessage } from "@langchain/core/messages";
 import { v4 as uuidv4 } from "uuid"; // Used in TODO: generate message IDs
 import type { InvokeRequest, SSEEvent } from "@/types";
 import "@/server/graphs/index";
-// TODO (Lesson 03, Step 3, Task 1): Uncomment this import
+// TODO (Lesson 03, Step 2, Task 1): Uncomment this import
 // import { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 import { getGraph } from "@/server/lib/registry";
 import { ensureThread } from "@/server/lib/threads";
@@ -50,13 +50,13 @@ export async function POST(req: Request) {
 				// Compose input state (typeof MessagesAnnotation.State)
 				const input = { messages: [new HumanMessage(message)] };
 
-				// TODO (Lesson 03, Step 3, Task 1): Set up the checkpointer and create the graph
+				// TODO (Lesson 03, Step 2, Task 1): Set up the checkpointer and create the graph
 				// 1. const checkpointer = PostgresSaver.fromConnString(process.env['DATABASE_URL']!)
 				// 2. await checkpointer.setup()
 				// 3. const graph = registeredGraph.createGraph(checkpointer)
 				// 4. const config = { configurable: { thread_id: threadId } }
 
-				// TODO (Lesson 03, Step 3, Task 2): Stream tokens and send SSE events
+				// TODO (Lesson 03, Step 2, Task 2): Stream tokens and send SSE events
 				// 1. Open a stream: graph.stream(input, { ...config, streamMode: 'messages' })
 				// 2. Iterate: for await (const [chunk] of streamResult)
 				// 3. If chunk._getType() === 'ai' && chunk.content, send a 'message_delta' event

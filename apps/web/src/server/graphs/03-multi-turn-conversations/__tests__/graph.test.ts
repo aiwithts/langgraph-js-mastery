@@ -6,7 +6,7 @@ vi.mock("../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 03: LLM Chatbot with History", () => {
+describe("Lesson 04: Multi-Turn Conversations", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
 		expect(mod.graph03MultiTurnConversations.config.id).toBe("03-multi-turn-conversations");
@@ -14,7 +14,7 @@ describe("Lesson 03: LLM Chatbot with History", () => {
 		expect(mod.graph03MultiTurnConversations.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 03 to pass this test)", async () => {
+	it("creates a compilable graph", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph03MultiTurnConversations.createGraph();
 		expect(graph).toBeDefined();

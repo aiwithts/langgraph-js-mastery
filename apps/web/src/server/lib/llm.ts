@@ -8,7 +8,7 @@ export interface CreateLLMConfig {
 	model?: string;
 }
 
-// TODO (Lesson 03): Implement the createLLM factory
+// TODO (Step 1): Implement the createLLM factory
 //
 // This shared utility is imported by every lesson that calls an LLM.
 // Implement it once here — all subsequent graphs use it via `createLLM()`.
@@ -28,5 +28,5 @@ export interface CreateLLMConfig {
 //   4. If neither key is available, throw an Error telling the user to add a key to their .env file
 //
 export function createLLM(config: CreateLLMConfig = {}): BaseChatModel {
-	throw new Error("Not implemented — complete Lesson 03!");
+	throw new Error("Not implemented — complete Lesson 04, Step 1!");
 }

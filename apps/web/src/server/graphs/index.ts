@@ -1,6 +1,7 @@
 import { registerGraph } from "../lib/registry";
 import { graph01HelloLanggraph } from "./01-hello-langgraph/index";
 import { graph02StateAndAnnotations } from "./02-state-and-annotations/index";
+import { graph03StreamingLayer } from "./03-streaming-layer/index";
 import { graph03MultiTurnConversations } from "./03-multi-turn-conversations/index";
 import { graph04PromptTemplates } from "./04-prompt-templates/index";
 import { graph05FewShotPrompting } from "./05-few-shot-prompting/index";
@@ -39,6 +40,7 @@ import { graph36Scaling } from "./36-scaling/index";
 // Register all 36 graphs
 registerGraph(graph01HelloLanggraph);
 registerGraph(graph02StateAndAnnotations);
+registerGraph(graph03StreamingLayer);
 registerGraph(graph03MultiTurnConversations);
 registerGraph(graph04PromptTemplates);
 registerGraph(graph05FewShotPrompting);
@@ -74,4 +76,4 @@ registerGraph(graph34Monitoring);
 registerGraph(graph35Testing);
 registerGraph(graph36Scaling);
 
-console.log("All 36 graphs registered successfully");
+console.log("All 37 graphs registered successfully");
