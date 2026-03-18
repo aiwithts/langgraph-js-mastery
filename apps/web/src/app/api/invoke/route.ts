@@ -1,8 +1,8 @@
 /**
  * POST /api/invoke — Invoke a graph and return the complete response
  *
- * Introduced in Lesson 01. Students implement the graph.invoke() call
- * and SSE event dispatch inside the TODO block below.
+ * Introduced in Lesson 01. Students implement the TextEncoder, ReadableStream,
+ * graph.invoke() call, and SSE event dispatch in Step 2 below.
  *
  * Request body: { graphId, threadId, message }
  * SSE events:   message_complete → done
@@ -30,61 +30,27 @@ export async function POST(req: Request) {
 		return Response.json({ error: "Graph not found" }, { status: 404 });
 	}
 
-	// TextEncoder converts JavaScript strings into Uint8Array bytes so they can
-	// be written into a binary stream. SSE frames are plain text, but the
-	// ReadableStream controller only accepts binary chunks.
-	// MDN: https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder
-	const encoder = new TextEncoder();
+	const input = { messages: [new HumanMessage(message)] };
 
-	// ReadableStream is the Web Streams API primitive for push-based streaming.
-	// The `start(controller)` callback runs immediately; call controller.enqueue()
-	// to push chunks and controller.close() when finished. Next.js returns this
-	// stream directly to the browser, keeping the HTTP connection open until close().
-	// MDN: https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream
-	const stream = new ReadableStream({
+	// TODO (Lesson 01, Step 2, Task 1): Create a TextEncoder
+	// TextEncoder converts JS strings to Uint8Array — ReadableStream.enqueue() only accepts binary chunks.
 
-		async start(controller) {
-			// Send helper
-			const send = (event: SSEEvent) =>
-				controller.enqueue(
-					encoder.encode(`event: ${event.type}\ndata: ${JSON.stringify(event)}\n\n`),
-				);
+	// TODO (Lesson 01, Step 2, Task 2): Build a ReadableStream and enqueue SSE events directly
+	// 1. Create: const stream = new ReadableStream({ async start(controller) { ... } })
+	// 2. Inside start(), in a try/finally block:
+	//    - const graph = registeredGraph.createGraph()
+	//    - const config = {}
+	//    - const result = await graph.invoke(input, config)
+	//    - const lastMessage = result.messages.at(-1)
+	//    - Enqueue a message_complete event directly:
+	//        controller.enqueue(encoder.encode(`event: message_complete\ndata: ${JSON.stringify({ type: 'message_complete', id: uuidv4(), content: lastMessage.content as string, role: 'assistant' })}\n\n`))
+	//    - Enqueue a done event:
+	//        controller.enqueue(encoder.encode(`event: done\ndata: ${JSON.stringify({ type: 'done', threadId })}\n\n`))
+	//    - In finally: controller.close()
 
-			try {
-				// Look up our registered graph
-				const graph = registeredGraph.createGraph();
-				const config = {};
+	// TODO (Lesson 01, Step 2, Task 3): Return a Response with SSE headers
+	// return new Response(stream, { headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive' } })
 
-				// Compose input state (typeof MessagesAnnotation.State)
-				const input = { messages: [new HumanMessage(message)] };
-
-				// TODO (Lesson 01, Step 2): Call graph.invoke() and send SSE events
-				// 1. Call graph.invoke(input, config) and store the result
-				// 2. Extract the last message from result.messages
-				// 3. Send a 'message_complete' event — include id, content (cast to string), and role: 'assistant'
-				// 4. Send a 'done' event — include threadId
-				throw new Error(
-					"Not implemented yet — complete Lesson 01 to build your first route!",
-				);
-			} catch (error) {
-				console.error("Error invoking graph:", error);
-				send({
-					type: "error",
-					message: error instanceof Error ? error.message : "Unknown error",
-					code: "INVOKE_ERROR",
-				});
-			} finally {
-				controller.close();
-			}
-		},
-	});
-
-	// Pass stream in response
-	return new Response(stream, {
-		headers: {
-			"Content-Type": "text/event-stream",
-			"Cache-Control": "no-cache",
-			Connection: "keep-alive",
-		},
-	});
+	// Placeholder — replace with your ReadableStream implementation in Step 2
+	return Response.json({ error: "Not implemented — complete Lesson 01, Step 2" }, { status: 501 });
 }
