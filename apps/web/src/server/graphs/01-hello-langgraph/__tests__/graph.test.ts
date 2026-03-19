@@ -1,10 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
-
-vi.mock("../../lib/llm", () => ({
-	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue({ content: "mocked response" }),
-	}),
-}));
+import { describe, expect, it } from "vitest";
 
 describe("Lesson 01: Hello LangGraph", () => {
 	it("exports a valid module with config and createGraph", async () => {
