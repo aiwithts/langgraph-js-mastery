@@ -23,7 +23,7 @@ export interface CreateLLMConfig {
 //        new ChatOpenAI({ model: model ?? "gpt-4o-mini", temperature, streaming })
 //
 //   3. If process.env["ANTHROPIC_API_KEY"] is set, return:
-//        new ChatAnthropic({ model: model ?? "claude-3-5-haiku-latest", temperature, streaming })
+//        new ChatAnthropic({ model: model ?? "claude-haiku-4-5", temperature, streaming })
 //
 //   4. If neither key is available, throw an Error telling the user to add a key to their .env file
 //
