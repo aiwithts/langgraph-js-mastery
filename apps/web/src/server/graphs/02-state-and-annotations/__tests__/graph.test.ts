@@ -1,11 +1,4 @@
-import { AIMessage } from "@langchain/core/messages";
-import { describe, expect, it, vi } from "vitest";
-
-vi.mock("../../../lib/llm", () => ({
-	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue(new AIMessage("Processing completed after 3 steps.")),
-	}),
-}));
+import { describe, expect, it } from "vitest";
 
 describe("Lesson 02: Multi-Step State Processor", () => {
 	it("exports a valid module with config and createGraph", async () => {
