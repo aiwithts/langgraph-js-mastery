@@ -48,11 +48,7 @@ export function ChatContainer() {
 	const { createThread, loading: creatingThread } = useCreateThread();
 
 	// Fetch messages for current thread
-	const {
-		messages: savedMessages,
-		loading: messagesLoading,
-		refetch: refetchMessages,
-	} = useMessages(currentThreadId);
+	const { messages: savedMessages, loading: messagesLoading } = useMessages(currentThreadId);
 
 	// Chat hook for sending messages
 	const {
@@ -83,10 +79,10 @@ export function ChatContainer() {
 	useEffect(() => {
 		if (latestThread && latestThread.graphId === selectedGraphId) {
 			setCurrentThreadId(latestThread.id);
-			// Refetch messages for the loaded thread
-			setTimeout(() => refetchMessages(), 0);
+			// useMessages fetches automatically when currentThreadId changes — no
+			// manual refetch needed here.
 		}
-	}, [latestThread, refetchMessages, selectedGraphId]);
+	}, [latestThread, selectedGraphId]);
 
 	// Load saved messages when thread changes
 	useEffect(() => {
@@ -104,12 +100,15 @@ export function ChatContainer() {
 	// Handle graph selection change
 	const handleGraphSelect = useCallback(
 		(graphId: string) => {
+			// Cancel any SSE stream in progress so old-graph tokens don't bleed
+			// into the new graph's message list after clearMessages() resets it.
+			cancelRequest();
 			setSelectedGraphId(graphId);
 			setCurrentThreadId(null);
 			clearMessages();
 			// useLatestThread re-fetches automatically when selectedGraphId changes
 		},
-		[clearMessages],
+		[cancelRequest, clearMessages],
 	);
 
 	// Handle new thread creation

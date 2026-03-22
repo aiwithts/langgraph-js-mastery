@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Message, Thread } from "@/types";
 
 export function useThreads(graphId: string | null) {
@@ -65,17 +65,26 @@ export function useMessages(threadId: string | null) {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const abortControllerRef = useRef<AbortController | null>(null);
 
 	const fetchMessages = useCallback(async () => {
 		if (!threadId) return;
+
+		// Abort any in-flight request for a previous thread
+		abortControllerRef.current?.abort();
+		abortControllerRef.current = new AbortController();
+
 		try {
 			setLoading(true);
-			const res = await fetch(`/api/threads/${threadId}/messages`);
+			const res = await fetch(`/api/threads/${threadId}/messages`, {
+				signal: abortControllerRef.current.signal,
+			});
 			if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 			const data = await res.json();
 			setMessages(data.messages ?? []);
 			setError(null);
 		} catch (err) {
+			if (err instanceof Error && err.name === "AbortError") return;
 			setError(err instanceof Error ? err.message : "Failed to fetch messages");
 		} finally {
 			setLoading(false);
@@ -83,8 +92,15 @@ export function useMessages(threadId: string | null) {
 	}, [threadId]);
 
 	useEffect(() => {
+		// Synchronously clear stale messages before the async fetch resolves,
+		// matching the pattern used in useLatestThread (fix from c19ef08).
+		setMessages([]);
 		if (threadId) fetchMessages();
-		else setMessages([]);
+
+		return () => {
+			// Cancel the fetch if threadId changes or the component unmounts
+			abortControllerRef.current?.abort();
+		};
 	}, [threadId, fetchMessages]);
 
 	return { messages, loading, error, refetch: fetchMessages };
