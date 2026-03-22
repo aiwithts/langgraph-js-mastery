@@ -1,7 +1,8 @@
+import { AIMessage } from "@langchain/core/messages";
 import { describe, expect, it, vi } from "vitest";
 
 // Create a controllable mock LLM
-const mockLLMInvoke = vi.fn().mockResolvedValue({ content: "Tested response from mock LLM" });
+const mockLLMInvoke = vi.fn().mockResolvedValue(new AIMessage("Tested response from mock LLM"));
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({ invoke: mockLLMInvoke }),
@@ -34,7 +35,7 @@ describe("Lesson 35: Testable Agent", () => {
 	it("validates output quality", async () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		// Test with empty response (should trigger validation)
-		mockLLMInvoke.mockResolvedValueOnce({ content: "" });
+		mockLLMInvoke.mockResolvedValueOnce(new AIMessage(""));
 		const mod = await import("../index");
 		const graph = await mod.graph35Testing.createGraph();
 		const result = await graph.invoke({ messages: [new HumanMessage("Hello!")] });

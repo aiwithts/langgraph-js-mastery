@@ -1,14 +1,15 @@
+import { AIMessage } from "@langchain/core/messages";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
 		invoke: vi
 			.fn()
-			.mockResolvedValueOnce({ content: "Build an AI-powered code review tool" })
-			.mockResolvedValueOnce({ content: "Clean, minimal interface with inline suggestions" })
-			.mockResolvedValueOnce({ content: "TypeScript API with LangGraph integration" })
-			.mockResolvedValueOnce({ content: "Target senior developers seeking productivity gains" })
-			.mockResolvedValue({ content: "Final product brief combining all perspectives" }),
+			.mockResolvedValueOnce(new AIMessage("Build an AI-powered code review tool"))
+			.mockResolvedValueOnce(new AIMessage("Clean, minimal interface with inline suggestions"))
+			.mockResolvedValueOnce(new AIMessage("TypeScript API with LangGraph integration"))
+			.mockResolvedValueOnce(new AIMessage("Target senior developers seeking productivity gains"))
+			.mockResolvedValue(new AIMessage("Final product brief combining all perspectives")),
 	}),
 }));
 

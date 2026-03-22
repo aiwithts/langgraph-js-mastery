@@ -1,8 +1,9 @@
+import { AIMessage } from "@langchain/core/messages";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue({ content: "extraction result" }),
+		invoke: vi.fn().mockResolvedValue(new AIMessage("extraction result")),
 		withStructuredOutput: vi.fn().mockReturnValue({
 			invoke: vi.fn().mockResolvedValue({ contacts: [], events: [], actionItems: [] }),
 		}),

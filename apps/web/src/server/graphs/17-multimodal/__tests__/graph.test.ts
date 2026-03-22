@@ -1,8 +1,9 @@
+import { AIMessage } from "@langchain/core/messages";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue({ content: "I can see a cat in the image." }),
+		invoke: vi.fn().mockResolvedValue(new AIMessage("I can see a cat in the image.")),
 	}),
 }));
 

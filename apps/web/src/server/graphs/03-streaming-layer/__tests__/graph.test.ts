@@ -1,10 +1,10 @@
-import { HumanMessage } from "@langchain/core/messages";
+import { HumanMessage, AIMessage } from "@langchain/core/messages";
 import { describe, expect, it, vi } from "vitest";
 import { graph03StreamingLayer } from "../index";
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue({ content: "mocked LLM response" }),
+		invoke: vi.fn().mockResolvedValue(new AIMessage("mocked LLM response")),
 	}),
 }));
 

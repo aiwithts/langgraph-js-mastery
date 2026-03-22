@@ -1,9 +1,10 @@
+import { AIMessage } from "@langchain/core/messages";
 import { describe, expect, it, vi } from "vitest";
 
 let evalCount = 0;
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue({ content: "function add(a, b) { return a + b; }" }),
+		invoke: vi.fn().mockResolvedValue(new AIMessage("function add(a, b) { return a + b; }")),
 		withStructuredOutput: vi.fn().mockReturnValue({
 			invoke: vi.fn().mockImplementation(() => {
 				evalCount++;

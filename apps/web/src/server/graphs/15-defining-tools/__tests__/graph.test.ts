@@ -1,10 +1,11 @@
+import { AIMessage } from "@langchain/core/messages";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue({ content: "The answer is 42", tool_calls: [] }),
+		invoke: vi.fn().mockResolvedValue(new AIMessage({ content: "The answer is 42", tool_calls: [] })),
 		bindTools: vi.fn().mockReturnValue({
-			invoke: vi.fn().mockResolvedValue({ content: "The answer is 42", tool_calls: [] }),
+			invoke: vi.fn().mockResolvedValue(new AIMessage({ content: "The answer is 42", tool_calls: [] })),
 		}),
 	}),
 }));

@@ -1,8 +1,9 @@
+import { AIMessage } from "@langchain/core/messages";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue({ content: "Using hybrid retrieval, I found..." }),
+		invoke: vi.fn().mockResolvedValue(new AIMessage("Using hybrid retrieval, I found...")),
 	}),
 }));
 

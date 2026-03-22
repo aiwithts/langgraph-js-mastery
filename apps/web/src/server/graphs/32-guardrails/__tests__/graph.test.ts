@@ -1,8 +1,9 @@
+import { AIMessage } from "@langchain/core/messages";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue({ content: "Here is a safe response about TypeScript." }),
+		invoke: vi.fn().mockResolvedValue(new AIMessage("Here is a safe response about TypeScript.")),
 	}),
 }));
 

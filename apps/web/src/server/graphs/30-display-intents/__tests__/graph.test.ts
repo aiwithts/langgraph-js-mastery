@@ -1,8 +1,9 @@
+import { AIMessage } from "@langchain/core/messages";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue({ content: "Current weather in London: Partly Cloudy, 18°C" }),
+		invoke: vi.fn().mockResolvedValue(new AIMessage("Current weather in London: Partly Cloudy, 18°C")),
 		withStructuredOutput: vi.fn().mockReturnValue({
 			invoke: vi.fn().mockResolvedValue({ location: "London" }),
 		}),
