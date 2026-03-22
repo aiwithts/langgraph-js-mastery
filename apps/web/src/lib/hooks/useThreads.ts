@@ -54,8 +54,8 @@ export function useLatestThread(graphId: string | null) {
 	}, [graphId]);
 
 	useEffect(() => {
+		setThread(null);
 		if (graphId) fetchLatest();
-		else setThread(null);
 	}, [graphId, fetchLatest]);
 
 	return { thread, loading, error, refetch: fetchLatest };

@@ -81,12 +81,12 @@ export function ChatContainer() {
 
 	// Set current thread when latest thread is loaded
 	useEffect(() => {
-		if (latestThread) {
+		if (latestThread && latestThread.graphId === selectedGraphId) {
 			setCurrentThreadId(latestThread.id);
 			// Refetch messages for the loaded thread
 			setTimeout(() => refetchMessages(), 0);
 		}
-	}, [latestThread, refetchMessages]);
+	}, [latestThread, refetchMessages, selectedGraphId]);
 
 	// Load saved messages when thread changes
 	useEffect(() => {
