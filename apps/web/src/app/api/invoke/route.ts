@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 	// TODO (Lesson 01, Step 2, Task 2): Build a ReadableStream and enqueue SSE events directly
 	// 1. Create: const stream = new ReadableStream({ async start(controller) { ... } })
 	// 2. Inside start(), in a try/finally block:
-	//    - const graph = registeredGraph.createGraph()
+	//    - const graph = await registeredGraph.createGraph()
 	//    - const config = {}
 	//    - const result = await graph.invoke(input, config)
 	//    - const lastMessage = result.messages.at(-1)
