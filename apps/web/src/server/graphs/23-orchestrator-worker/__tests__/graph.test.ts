@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 let callCount = 0;
-vi.mock("../../lib/llm", () => ({
+vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
 		invoke: vi.fn().mockResolvedValue({ content: "Final research report..." }),
 		withStructuredOutput: vi.fn().mockReturnValue({

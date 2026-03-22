@@ -17,7 +17,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // - Return: { messages: [response] }
 
 // TODO (Lesson 04, Step 4): Build the graph
-// new StateGraph(SpecialityState)
+// new StateGraph(SpecialtyState)
 //   .addNode("assistant", assistantNode)
 //   .addEdge(START, "assistant")
 //   .addEdge("assistant", END)

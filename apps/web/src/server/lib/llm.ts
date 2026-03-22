@@ -28,5 +28,5 @@ export interface CreateLLMConfig {
 //   4. If neither key is available, throw an Error telling the user to add a key to their .env file
 //
 export function createLLM(config: CreateLLMConfig = {}): BaseChatModel {
-	throw new Error("Not implemented — complete Lesson 04, Step 1!");
+	throw new Error("Not implemented — complete Lesson 03, Step 1!");
 }

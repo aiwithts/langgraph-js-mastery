@@ -6,7 +6,7 @@ const invokeMock = vi
 	.mockResolvedValueOnce({ content: "Critique: Needs more examples, clearer intro..." })
 	.mockResolvedValueOnce({ content: "Refined: TypeScript is a strongly typed..." });
 
-vi.mock("../../lib/llm", () => ({
+vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({ invoke: invokeMock }),
 }));
 

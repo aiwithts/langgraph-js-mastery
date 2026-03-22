@@ -215,7 +215,15 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 									// Each chunk of the LLM response as it's generated.
 									// We accumulate content and update the message in state.
 									case "message_delta":
-										accumulatedContent += data.content;
+										// Guard: data.content must be a string before concatenation.
+										// In your route (stream/route.ts) you write `chunk.content as string`,
+										// which is a TypeScript type assertion — not a runtime conversion.
+										// When a graph node's LLM call returns a message whose content is an
+										// array of content blocks (Claude's multimodal format), chunk.content
+										// is still an object at runtime. String-concatenating an object gives
+										// "[object Object]" instead of text. This guard silently skips
+										// non-string deltas so the UI stays clean.
+										accumulatedContent += typeof data.content === "string" ? data.content : "";
 										setMessages((prev) =>
 											prev.map((msg) =>
 												msg.id === assistantMessageId
@@ -443,7 +451,11 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 
 							switch (data.type) {
 								case "message_delta":
-									accumulatedContent += data.content;
+									// Same guard as above — see the sendMessage handler for the full
+									// explanation. `chunk.content as string` in your route is a TypeScript
+									// assertion, not a conversion; this ensures non-string content blocks
+									// never reach the UI as "[object Object]".
+									accumulatedContent += typeof data.content === "string" ? data.content : "";
 									setMessages((prev) =>
 										prev.map((msg) =>
 											msg.id === assistantMessageId ? { ...msg, content: accumulatedContent } : msg,

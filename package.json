@@ -7,7 +7,7 @@
 		"dev": "pnpm db:start && pnpm --filter @langgraph/web dev",
 		"build": "pnpm --filter @langgraph/web build",
 		"test": "pnpm --filter @langgraph/web test",
-		"test:lessons": "pnpm --filter @langgraph/web test -- src/server/graphs",
+		"test:lessons": "sh -c 'pnpm --filter @langgraph/web exec vitest run src/server/graphs${1:+/$1}' --",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
 		"typecheck": "pnpm --filter @langgraph/web typecheck",

@@ -103,14 +103,13 @@ export function ChatContainer() {
 
 	// Handle graph selection change
 	const handleGraphSelect = useCallback(
-		async (graphId: string) => {
+		(graphId: string) => {
 			setSelectedGraphId(graphId);
 			setCurrentThreadId(null);
 			clearMessages();
-			// Refetch thread for new graph after state updates
-			setTimeout(() => refetchThread(), 0);
+			// useLatestThread re-fetches automatically when selectedGraphId changes
 		},
-		[clearMessages, refetchThread],
+		[clearMessages],
 	);
 
 	// Handle new thread creation

@@ -1,22 +1,22 @@
-import { AIMessage } from "@langchain/core/messages";
-import { END, MessagesAnnotation, START, StateGraph } from "@langchain/langgraph";
-import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 import type { CompiledGraph } from "../../types";
+import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
-// TODO (Step 1, Task 1): Define the echoNode function
-// Parameters: state (typeof MessagesAnnotation.State)
-// 1. Get the last message from state.messages
-// 2. Extract its content as a string (if content is not a string, use "unknown")
-// 3. Create an AIMessage with a response that echoes the user's input
-// 4. Return { messages: [yourAIMessage] }
+// TODO (Lesson 03, Step 2, Task 1): Add your imports
+//   import { END, MessagesAnnotation, START, StateGraph } from "@langchain/langgraph";
+//   import { createLLM } from "../../lib/llm";
+
+// TODO (Lesson 03, Step 2, Task 2): Define chatNode
+// - Signature: async function chatNode(state: typeof MessagesAnnotation.State, config: LangGraphRunnableConfig)
+// - const llm = createLLM()
+// - const response = await llm.invoke(state.messages, config)  // config wires token streaming
+// - Return: { messages: [response] }
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
-	// TODO (Step 1, Task 2): Build the graph
-	// 1. Create a new StateGraph with MessagesAnnotation
-	// 2. Add echoNode with .addNode('echo', echoNode)
-	// 3. Add edge from START to 'echo'
-	// 4. Add edge from 'echo' to END
-	// 5. Compile and return:
-	//    workflow.compile({ checkpointer: checkpointer as any }) // known LangGraph type narrowing workaround — safe here
-	throw new Error("Not implemented — complete Lesson 03 Step 1!");
+	// TODO (Lesson 03, Step 2, Task 3): Build and compile
+	// new StateGraph(MessagesAnnotation)
+	//   .addNode("chat", chatNode)
+	//   .addEdge(START, "chat")
+	//   .addEdge("chat", END)
+	//   .compile({ checkpointer: checkpointer as any })
+	throw new Error("Not implemented — complete Lesson 03, Step 2!");
 }

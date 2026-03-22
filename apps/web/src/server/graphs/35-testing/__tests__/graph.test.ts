@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 // Create a controllable mock LLM
 const mockLLMInvoke = vi.fn().mockResolvedValue({ content: "Tested response from mock LLM" });
 
-vi.mock("../../lib/llm", () => ({
+vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({ invoke: mockLLMInvoke }),
 }));
 

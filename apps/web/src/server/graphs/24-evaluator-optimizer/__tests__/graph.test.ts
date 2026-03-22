@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 let evalCount = 0;
-vi.mock("../../lib/llm", () => ({
+vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
 		invoke: vi.fn().mockResolvedValue({ content: "function add(a, b) { return a + b; }" }),
 		withStructuredOutput: vi.fn().mockReturnValue({

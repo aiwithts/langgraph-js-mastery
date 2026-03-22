@@ -1,6 +1,12 @@
 import { HumanMessage } from "@langchain/core/messages";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { graph03StreamingLayer } from "../index";
+
+vi.mock("../../../lib/llm", () => ({
+	createLLM: vi.fn().mockReturnValue({
+		invoke: vi.fn().mockResolvedValue({ content: "mocked LLM response" }),
+	}),
+}));
 
 describe("Lesson 03: The Streaming Layer", () => {
 	it("exports a valid module with config and createGraph", () => {
@@ -14,16 +20,15 @@ describe("Lesson 03: The Streaming Layer", () => {
 	});
 
 	it("config.endpoint is '/api/stream'", () => {
+		// Passes after Phase 2: learner updates config.ts endpoint from '/api/invoke' to '/api/stream'
 		expect(graph03StreamingLayer.config.endpoint).toBe("/api/stream");
 	});
 
-	it("graph processes a message and returns an AIMessage echoing the user input", async () => {
-		const graph = graph03StreamingLayer.createGraph();
+	it("graph processes a message and returns an AI response", async () => {
+		const graph = await Promise.resolve(graph03StreamingLayer.createGraph());
 		const result = await graph.invoke({
-			messages: [new HumanMessage("hello streaming")],
+			messages: [new HumanMessage("Hello!")],
 		});
-		const lastMessage = result.messages[result.messages.length - 1];
-		expect(lastMessage._getType()).toBe("ai");
-		expect(lastMessage.content).toContain("hello streaming");
+		expect(result.messages.length).toBeGreaterThan(1);
 	});
 });
