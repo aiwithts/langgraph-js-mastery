@@ -30,4 +30,24 @@ describe("Lesson 07: Multi-Mode Prompt Assistant", () => {
 		});
 		expect(result.messages.length).toBeGreaterThan(1);
 	});
+
+	it("routes concept questions to concept mode", async () => {
+		const { HumanMessage } = await import("@langchain/core/messages");
+		const mod = await import("../index");
+		const graph = await mod.graph07TemplateComposition.createGraph();
+		const result = await graph.invoke({
+			messages: [new HumanMessage("What is a closure in JavaScript?")],
+		});
+		expect(result.messages.length).toBeGreaterThan(1);
+	});
+
+	it("routes debug questions to debug mode", async () => {
+		const { HumanMessage } = await import("@langchain/core/messages");
+		const mod = await import("../index");
+		const graph = await mod.graph07TemplateComposition.createGraph();
+		const result = await graph.invoke({
+			messages: [new HumanMessage("My code keeps crashing with a null pointer error")],
+		});
+		expect(result.messages.length).toBeGreaterThan(1);
+	});
 });

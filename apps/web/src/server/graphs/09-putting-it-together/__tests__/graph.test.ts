@@ -31,4 +31,19 @@ describe("Lesson 09: Swiss Army Knife Assistant", () => {
 		const result = await graph.invoke({ messages: [new HumanMessage("What is a closure?")] });
 		expect(result.messages.length).toBeGreaterThan(1);
 	});
+
+	it("falls back to explain mode when confidence is low", async () => {
+		const { createLLM } = await import("../../../lib/llm");
+		vi.mocked(createLLM).mockReturnValueOnce({
+			invoke: vi.fn().mockResolvedValue(new AIMessage("fallback response")),
+			withStructuredOutput: vi.fn().mockReturnValue({
+				invoke: vi.fn().mockResolvedValue({ mode: "create", confidence: 0.3, reasoning: "ambiguous" }),
+			}),
+		} as any);
+		const { HumanMessage } = await import("@langchain/core/messages");
+		const mod = await import("../index");
+		const graph = await mod.graph09PuttingItTogether.createGraph();
+		const result = await graph.invoke({ messages: [new HumanMessage("hey")] });
+		expect(result.messages.length).toBeGreaterThan(1);
+	});
 });

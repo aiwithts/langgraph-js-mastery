@@ -39,6 +39,9 @@ export async function POST(req: Request) {
 	// Compose input state (typeof MessagesAnnotation.State)
 	const input = { messages: [new HumanMessage(message)] };
 
+	// NOTE: Tasks 1–3 below go INSIDE a ReadableStream's start(controller) callback.
+	//       Task 4 (return the Response) goes OUTSIDE it, after the ReadableStream closing brace.
+
 	// TODO (Lesson 03, Step 3, Task 1): Create the TextEncoder and define a send() helper
 	// You wrote controller.enqueue(encoder.encode(...)) inline in L01 — now you'll need it 10+ times.
 	// Abstract it: const send = (event: SSEEvent) => controller.enqueue(encoder.encode(`event: ${event.type}\ndata: ${JSON.stringify(event)}\n\n`))
@@ -55,8 +58,9 @@ export async function POST(req: Request) {
 	// Filter to ai-type chunks with string content:
 	//   chunk._getType() === 'ai' && typeof chunk.content === 'string' && chunk.content
 	//   NOTE: structured-output nodes emit chunks where content is an array — the typeof guard skips those
-	// send() a message_delta for each chunk (accumulate content)
-	// send() message_complete after the loop, then send() done
+	// For each matching chunk: send({ type: 'message_delta', content: chunk.content, role: 'assistant' })
+	// After the loop: send({ type: 'message_complete', id: uuidv4(), content: accumulated, role: 'assistant' })
+	//                 send({ type: 'done', threadId })
 
 	// TODO (Lesson 03, Step 3, Task 4): Return a Response with SSE headers
 
