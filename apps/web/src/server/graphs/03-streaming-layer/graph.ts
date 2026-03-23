@@ -2,7 +2,7 @@ import type { CompiledGraph } from "../../types";
 import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 03, Step 2, Task 1): Add your imports
-//   import { END, MessagesAnnotation, START, StateGraph } from "@langchain/langgraph";
+//   import { END, MessagesAnnotation, START, StateGraph, type LangGraphRunnableConfig } from "@langchain/langgraph";
 //   import { createLLM } from "../../lib/llm";
 
 // TODO (Lesson 03, Step 2, Task 2): Define chatNode

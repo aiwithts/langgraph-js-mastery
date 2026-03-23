@@ -52,7 +52,9 @@ export async function POST(req: Request) {
 
 	// TODO (Lesson 03, Step 3, Task 3): Stream tokens and send SSE events
 	// Use graph.stream(input, { ...config, streamMode: 'messages' }) and iterate chunks
-	// Filter to ai-type chunks: chunk._getType() === 'ai' && chunk.content
+	// Filter to ai-type chunks with string content:
+	//   chunk._getType() === 'ai' && typeof chunk.content === 'string' && chunk.content
+	//   NOTE: structured-output nodes emit chunks where content is an array — the typeof guard skips those
 	// send() a message_delta for each chunk (accumulate content)
 	// send() message_complete after the loop, then send() done
 

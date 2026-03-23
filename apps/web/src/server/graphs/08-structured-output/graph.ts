@@ -16,8 +16,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // - Use createLLM({ temperature: 0, streaming: false })
 // - const structuredLlm = llm.withStructuredOutput(ExtractionResultSchema)
 // - Get userText from last message
-// - Invoke: structuredLlm.invoke([new SystemMessage("Extract contacts, events, and action items..."), new HumanMessage(userText)], { callbacks: [] })
-//   NOTE: { callbacks: [] } suppresses LangChain streaming events that would cause [object Object] in the UI
+// - Invoke: structuredLlm.invoke([new SystemMessage("Extract contacts, events, and action items..."), new HumanMessage(userText)])
 // - Return: { lastExtraction: result }
 
 // TODO (Lesson 08, Step 5): Define formatNode

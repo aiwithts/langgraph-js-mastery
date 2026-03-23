@@ -17,13 +17,12 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 09, Step 5): Define classifyNode
 // - Use llm.withStructuredOutput(IntentSchema) to classify the intent
-// - Invoke: structuredLlm.invoke([...messages], { callbacks: [] })
-//   NOTE: { callbacks: [] } suppresses LangChain streaming events that cause [object Object] in the UI
+// - Invoke: structuredLlm.invoke([new SystemMessage(CLASSIFY_PROMPT), new HumanMessage(userText)])
 // - Return: { detectedMode: result.mode, confidence: result.confidence }
 
 // TODO (Lesson 09, Step 6): Define explainNode, extractNode, createNode
 // - explainNode: formats EXPLAIN_PROMPT with state.messages, invokes LLM with config
-// - extractNode: uses withStructuredOutput(ExtractionResultSchema), pass { callbacks: [] } to invoke
+// - extractNode: uses withStructuredOutput(ExtractionResultSchema), invokes with messages array
 //   formats markdown output inline, returns { messages: [new AIMessage(...)] }
 // - createNode: formats CREATE_PROMPT with state.messages, invokes LLM with config
 
