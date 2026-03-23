@@ -173,6 +173,11 @@ export async function ensureThread(graphId: string, threadId: string): Promise<T
 
 	if (existing.rows.length > 0) {
 		const row = existing.rows[0];
+		if (row.graphId !== graphId) {
+			throw new Error(
+				`Thread "${threadId}" belongs to graph "${row.graphId}", not "${graphId}"`,
+			);
+		}
 		await pool.query("UPDATE threads SET updated_at = NOW() WHERE id = $1", [threadId]);
 		return {
 			id: row.id,
