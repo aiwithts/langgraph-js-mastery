@@ -1,5 +1,5 @@
-// TODO (Lesson 07, Step 2a): Define shared personality and guidelines
-// These will be imported by the mode-specific prompts
+// TODO (Lesson 07, Step 2, Task 1): Define shared personality and guidelines
+// These plain strings are imported by each mode file and embedded via ${...} template literals.
 
-export const PERSONALITY = ""; // TODO: define your AI tutor personality string
-export const GUIDELINES = ""; // TODO: define 3-4 core teaching guidelines
+export const PERSONALITY = "";
+export const GUIDELINES = "";

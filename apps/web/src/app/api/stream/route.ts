@@ -39,30 +39,16 @@ export async function POST(req: Request) {
 	// Compose input state (typeof MessagesAnnotation.State)
 	const input = { messages: [new HumanMessage(message)] };
 
-	// NOTE: Tasks 1–3 below go INSIDE a ReadableStream's start(controller) callback.
+	// NOTE: Tasks 1–3 go INSIDE a ReadableStream's start(controller) callback.
 	//       Task 4 (return the Response) goes OUTSIDE it, after the ReadableStream closing brace.
 
-	// TODO (Lesson 03, Step 3, Task 1): Create the TextEncoder and define a send() helper
-	// You wrote controller.enqueue(encoder.encode(...)) inline in L01 — now you'll need it 10+ times.
-	// Abstract it: const send = (event: SSEEvent) => controller.enqueue(encoder.encode(`event: ${event.type}\ndata: ${JSON.stringify(event)}\n\n`))
-	// Define send() inside the ReadableStream's start(controller) callback so it closes over controller.
+	// TODO (Lesson 03, Step 3, Task 1): Create the TextEncoder and define send() inside the ReadableStream start callback
 
-	// TODO (Lesson 03, Step 3, Task 2): Set up the checkpointer and create the graph
-	// 1. const checkpointer = PostgresSaver.fromConnString(process.env['DATABASE_URL']!)
-	// 2. await checkpointer.setup()
-	// 3. const graph = registeredGraph.createGraph(checkpointer)
-	// 4. const config = { configurable: { thread_id: threadId } }
+	// TODO (Lesson 03, Step 3, Task 2): Set up the PostgresSaver checkpointer, create the graph, and build the config object
 
-	// TODO (Lesson 03, Step 3, Task 3): Stream tokens and send SSE events
-	// Use graph.stream(input, { ...config, streamMode: 'messages' }) and iterate chunks
-	// Filter to ai-type chunks with string content:
-	//   chunk._getType() === 'ai' && typeof chunk.content === 'string' && chunk.content
-	//   NOTE: structured-output nodes emit chunks where content is an array — the typeof guard skips those
-	// For each matching chunk: send({ type: 'message_delta', content: chunk.content, role: 'assistant' })
-	// After the loop: send({ type: 'message_complete', id: uuidv4(), content: accumulated, role: 'assistant' })
-	//                 send({ type: 'done', threadId })
+	// TODO (Lesson 03, Step 3, Task 3): Stream tokens with graph.stream() and send message_delta, message_complete, and done events
 
-	// TODO (Lesson 03, Step 3, Task 4): Return a Response with SSE headers
+	// TODO (Lesson 03, Step 3, Task 4): Return a new Response wrapping the stream with SSE headers
 
 	// Placeholder — replace with your ReadableStream implementation in Step 3
 	return Response.json({ error: "Not implemented — complete Lesson 03, Step 3" }, { status: 501 });

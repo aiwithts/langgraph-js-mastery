@@ -1,11 +1,7 @@
-// TODO (Lesson 07, Step 2b): Create CODE_PROMPT for implementation mode
-// You'll need:
-//   import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
-//   import { GUIDELINES, PERSONALITY } from "./base";
-//
-// CODE_PROMPT = ChatPromptTemplate.fromMessages([
-//   ["system", `${PERSONALITY}\n\n🔧 CODE MODE\n${GUIDELINES}\n\nAlways provide working TypeScript examples.`],
-//   new MessagesPlaceholder("messages"),
-// ]);
+// TODO (Lesson 07, Step 2, Task 2): Create CODE_PROMPT for implementation mode
+// Import ChatPromptTemplate and MessagesPlaceholder from "@langchain/core/prompts".
+// Import PERSONALITY and GUIDELINES from "./base".
+// Build a ChatPromptTemplate with a system message that embeds both shared strings via ${...}
+// and adds a code-mode specific instruction. Include new MessagesPlaceholder("messages").
 
-export const CODE_PROMPT: any = null; // TODO: replace with ChatPromptTemplate
+export const CODE_PROMPT: any = null;

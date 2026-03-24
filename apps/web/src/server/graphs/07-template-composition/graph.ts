@@ -8,27 +8,17 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 //   import { createLLM } from "../../lib/llm";
 //   import { CODE_PROMPT, CONCEPT_PROMPT, DEBUG_PROMPT } from "./prompts";
 
-// TODO (Lesson 07, Step 3): Define routeByContent function
-// Inspect the last message content (lowercase)
-// Return "code" if it contains code keywords (code, function, implement, write, typescript, class)
-// Return "debug" if it contains debug keywords (error, bug, fix, broken, issue, not working)
-// Default: return "concept"
+// TODO (Lesson 07, Step 3): Define routeByContent
 // Signature: function routeByContent(state: typeof MessagesAnnotation.State): "code" | "concept" | "debug"
+// Inspect the last message content (lowercased) and return the appropriate mode.
 
-// TODO (Lesson 07, Step 4): Create a node factory
-// function createNode(prompt: ChatPromptTemplate) {
-//   return async function(state: typeof MessagesAnnotation.State) {
-//     const llm = createLLM({ temperature: 0.7 });
-//     const formatted = await prompt.formatMessages({ messages: state.messages });
-//     const response = await llm.invoke(formatted);
-//     return { messages: [response] };
-//   };
-// }
+// TODO (Lesson 07, Step 4): Define the createNode factory
+// Signature: function createNode(prompt: ChatPromptTemplate) { ... }
+// The returned async function formats the prompt with state.messages and invokes the LLM.
 
 // TODO (Lesson 07, Step 5): Build the graph
-// Nodes: code, concept, debug (each created by createNode with its prompt)
-// Use addConditionalEdges(START, routeByContent, { code: "code", concept: "concept", debug: "debug" })
-// Each node edges to END
+// Three nodes (code, concept, debug) wired with addConditionalEdges from START via routeByContent.
+// Each node edges to END.
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 07, Step 6): Compile and return

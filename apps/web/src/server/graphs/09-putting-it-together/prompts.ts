@@ -1,4 +1,4 @@
-// TODO (Lesson 09, Step 3): Define prompts for all three modes
+// TODO (Lesson 09, Step 3): Define CLASSIFY_PROMPT, EXPLAIN_PROMPT, and CREATE_PROMPT
 // You'll need:
 //   import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
 //
@@ -13,6 +13,6 @@
 // CREATE_PROMPT: ChatPromptTemplate with MessagesPlaceholder("messages")
 //   System: be a versatile creator, match format to request type
 
-export const CLASSIFY_PROMPT = ""; // TODO: replace with classification system prompt string
-export const EXPLAIN_PROMPT: any = null; // TODO: replace with ChatPromptTemplate
-export const CREATE_PROMPT: any = null; // TODO: replace with ChatPromptTemplate
+export const CLASSIFY_PROMPT = "";
+export const EXPLAIN_PROMPT: any = null;
+export const CREATE_PROMPT: any = null;

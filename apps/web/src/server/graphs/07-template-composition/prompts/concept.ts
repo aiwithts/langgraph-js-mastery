@@ -1,11 +1,5 @@
-// TODO (Lesson 07, Step 2c): Create CONCEPT_PROMPT for explanation mode
-// You'll need:
-//   import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
-//   import { GUIDELINES, PERSONALITY } from "./base";
-//
-// CONCEPT_PROMPT = ChatPromptTemplate.fromMessages([
-//   ["system", `${PERSONALITY}\n\n💡 CONCEPT MODE\n${GUIDELINES}\n\nFocus on analogies and building from simple to complex.`],
-//   new MessagesPlaceholder("messages"),
-// ]);
+// TODO (Lesson 07, Step 2, Task 3): Create CONCEPT_PROMPT for explanation mode
+// Same pattern as code.ts. Use "💡 CONCEPT MODE" as the mode label in the system message.
+// Focus the mode instruction on analogies and building understanding from simple to complex.
 
-export const CONCEPT_PROMPT: any = null; // TODO: replace with ChatPromptTemplate
+export const CONCEPT_PROMPT: any = null;

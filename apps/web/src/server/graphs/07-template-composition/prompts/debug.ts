@@ -1,11 +1,5 @@
-// TODO (Lesson 07, Step 2d): Create DEBUG_PROMPT for problem-solving mode
-// You'll need:
-//   import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
-//   import { GUIDELINES, PERSONALITY } from "./base";
-//
-// DEBUG_PROMPT = ChatPromptTemplate.fromMessages([
-//   ["system", `${PERSONALITY}\n\n🔍 DEBUG MODE\n${GUIDELINES}\n\nFocus on diagnosing root causes and explaining why issues occur.`],
-//   new MessagesPlaceholder("messages"),
-// ]);
+// TODO (Lesson 07, Step 2, Task 4): Create DEBUG_PROMPT for problem-solving mode
+// Same pattern as code.ts. Use "🔍 DEBUG MODE" as the mode label in the system message.
+// Focus the mode instruction on diagnosing root causes and explaining why issues occur.
 
-export const DEBUG_PROMPT: any = null; // TODO: replace with ChatPromptTemplate
+export const DEBUG_PROMPT: any = null;
