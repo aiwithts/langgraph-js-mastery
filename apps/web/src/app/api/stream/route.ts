@@ -12,7 +12,7 @@ import { HumanMessage } from "@langchain/core/messages";
 import { v4 as uuidv4 } from "uuid"; // Used in TODO: generate message IDs
 import type { InvokeRequest, SSEEvent } from "@/types";
 import "@/server/graphs/index";
-// TODO (Lesson 03, Step 3, Task 1): Uncomment this import
+// TODO (Lesson 03, Step 3, Task 2): Uncomment this import
 // import { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 import { getGraph } from "@/server/lib/registry";
 import { ensureThread } from "@/server/lib/threads";

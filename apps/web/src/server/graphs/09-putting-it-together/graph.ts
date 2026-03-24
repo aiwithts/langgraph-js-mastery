@@ -2,13 +2,6 @@ import type { CompiledGraph } from "../../types";
 import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 09, Step 1): Add your imports
-// You'll need:
-//   import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
-//   import { Annotation, END, MessagesAnnotation, START, StateGraph } from "@langchain/langgraph";
-//   import type { LangGraphRunnableConfig } from "@langchain/langgraph";
-//   import { createLLM } from "../../lib/llm";
-//   import { CLASSIFY_PROMPT, CREATE_PROMPT, EXPLAIN_PROMPT } from "./prompts";
-//   import { ExtractionResultSchema, IntentSchema } from "./schemas";
 
 // TODO (Lesson 09, Step 4): Define SwissArmyState
 // Extends MessagesAnnotation with:
