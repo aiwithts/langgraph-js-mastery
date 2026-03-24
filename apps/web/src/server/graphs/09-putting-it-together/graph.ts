@@ -13,11 +13,11 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // - Invoke: structuredLlm.invoke([new SystemMessage(CLASSIFY_PROMPT), new HumanMessage(userText)])
 // - Return: { detectedMode: result.mode, confidence: result.confidence }
 
-// TODO (Lesson 09, Step 6): Define explainNode, extractNode, createNode
-// - explainNode: formats EXPLAIN_PROMPT with state.messages, invokes LLM with config
-// - extractNode: uses withStructuredOutput(ExtractionResultSchema), invokes with messages array
-//   formats markdown output inline, returns { messages: [new AIMessage(...)] }
-// - createNode: formats CREATE_PROMPT with state.messages, invokes LLM with config
+// TODO (Lesson 09, Step 6, Task 1): Define explainNode
+
+// TODO (Lesson 09, Step 6, Task 2): Define extractNode
+
+// TODO (Lesson 09, Step 6, Task 3): Define createNode
 
 // TODO (Lesson 09, Step 7): Define routeByMode
 // If confidence < 0.6 → "explain"
