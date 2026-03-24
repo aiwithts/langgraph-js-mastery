@@ -8,7 +8,7 @@ export interface CreateLLMConfig {
 	model?: string;
 }
 
-// TODO (Step 1): Implement the createLLM factory
+// TODO (Lesson 03, Step 1): Implement the createLLM factory
 //
 // This shared utility is imported by every lesson that calls an LLM.
 // Implement it once here — all subsequent graphs use it via `createLLM()`.

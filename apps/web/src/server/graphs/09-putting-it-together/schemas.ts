@@ -1,4 +1,4 @@
-// TODO (Lesson 09, Step 2a): Define IntentSchema for classification
+// TODO (Lesson 09, Step 2): Define IntentSchema for classification
 // You'll need: import { z } from "zod";
 //
 // IntentSchema: z.object({
