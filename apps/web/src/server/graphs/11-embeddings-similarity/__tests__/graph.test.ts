@@ -8,9 +8,11 @@ vi.mock("../../../lib/llm", () => ({
 }));
 
 vi.mock("@langchain/openai", () => ({
-	OpenAIEmbeddings: vi.fn().mockReturnValue({
-		embedDocuments: vi.fn().mockResolvedValue([[0.1, 0.2], [0.3, 0.4], [0.5, 0.6], [0.7, 0.8]]),
-		embedQuery: vi.fn().mockResolvedValue([0.15, 0.25]),
+	OpenAIEmbeddings: vi.fn().mockImplementation(function () {
+		return {
+			embedDocuments: vi.fn().mockResolvedValue([[0.1, 0.2], [0.3, 0.4], [0.5, 0.6], [0.7, 0.8]]),
+			embedQuery: vi.fn().mockResolvedValue([0.15, 0.25]),
+		};
 	}),
 }));
 
