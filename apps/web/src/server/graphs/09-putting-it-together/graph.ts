@@ -4,14 +4,8 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // TODO (Lesson 09, Step 1): Add your imports
 
 // TODO (Lesson 09, Step 4): Define SwissArmyState
-// Extends MessagesAnnotation with:
-//   detectedMode: string — reducer replaces, default "explain"
-//   confidence: number — reducer replaces, default 0
 
 // TODO (Lesson 09, Step 5): Define classifyNode
-// - Use llm.withStructuredOutput(IntentSchema) to classify the intent
-// - Invoke: structuredLlm.invoke([new SystemMessage(CLASSIFY_PROMPT), new HumanMessage(userText)])
-// - Return: { detectedMode: result.mode, confidence: result.confidence }
 
 // TODO (Lesson 09, Step 6, Task 1): Define explainNode
 
@@ -20,13 +14,8 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // TODO (Lesson 09, Step 6, Task 3): Define createNode
 
 // TODO (Lesson 09, Step 7): Define routeByMode
-// If confidence < 0.6 → "explain"
-// Otherwise → state.detectedMode
 
 // TODO (Lesson 09, Step 8): Build graph — define const workflow at module level (outside createGraph)
-// const workflow = new StateGraph(SwissArmyState)
-//   .addNode("classify", classifyNode) ...
-// START → classify → (routeByMode) → explain | extract | create → END
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 09, Step 9): Compile and return
