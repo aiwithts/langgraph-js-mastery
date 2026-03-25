@@ -28,9 +28,9 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // - Invoke LLM with system + state.messages
 // - Return: { messages: [response] }
 
-// TODO (Lesson 13, Step 7): Build graph: START → retrieve → generate → END
+// TODO (Lesson 13, Step 7, Task 1): Build graph: START → retrieve → generate → END
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
-	// TODO (Lesson 13, Step 8): Compile and return
+	// TODO (Lesson 13, Step 7, Task 2): Compile and return
 	throw new Error("Not implemented — complete Lesson 13!");
 }

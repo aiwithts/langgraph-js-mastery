@@ -15,9 +15,9 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 14, Step 6): Define generateNode (same as Lesson 13)
 
-// TODO (Lesson 14, Step 7): Build graph: START → retrieve → generate → END
+// TODO (Lesson 14, Step 7, Task 1): Build graph: START → retrieve → generate → END
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
-	// TODO (Lesson 14, Step 8): Compile and return
+	// TODO (Lesson 14, Step 7, Task 2): Compile and return
 	throw new Error("Not implemented — complete Lesson 14!");
 }
