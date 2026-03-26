@@ -5,22 +5,17 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // You'll need:
 //   import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 //   import { Annotation, END, MessagesAnnotation, START, StateGraph } from "@langchain/langgraph";
-//   import type { LangGraphRunnableConfig } from "@langchain/langgraph";
 //   import { z } from "zod";
 //   import { createLLM } from "../../lib/llm";
 
 // TODO (Lesson 20, Step 2): Define RouterState
 // Annotation.Root({ ...MessagesAnnotation.spec })
-// Add:
-//   category: Annotation<string> — reducer replaces, default "general"
-//   confidence: Annotation<number> — reducer replaces, default 0
+// Add: category (Annotation<string>, replace reducer, default "general")
+//      confidence (Annotation<number>, replace reducer, default 0)
 
-// TODO (Lesson 20, Step 3): Define ClassificationSchema using Zod
-// z.object({
-//   category: z.enum(["billing", "technical", "general"]).describe("Best matching category"),
-//   confidence: z.number().min(0).max(1).describe("Classification confidence"),
-//   reasoning: z.string().describe("Why this category was chosen"),
-// })
+// TODO (Lesson 20, Step 3): Define ClassificationSchema
+// z.object with category (z.enum of billing/technical/general), confidence (z.number 0–1),
+// and reasoning (z.string) fields — each with a .describe() explanation
 
 // TODO (Lesson 20, Step 4): Define classifierNode
 // - Use llm.withStructuredOutput(ClassificationSchema) to classify the user request
