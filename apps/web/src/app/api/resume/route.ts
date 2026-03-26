@@ -45,30 +45,8 @@ export async function POST(req: Request) {
 
 				const config = { configurable: { thread_id: threadId } };
 
-				// ─── TODO (L18): Resume graph with Command and detect interrupts ──────
-				//
-				// Import Command at the top of the file (uncomment the import above).
-				//
-				// 1. Stream using Command({ resume: response }) as the input:
-				//      const input = new Command({ resume: response })
-				//      const streamResult = graph.stream(input, { ...config, streamMode: 'messages' })
-				//
-				// 2. Same token loop as /api/stream-hitl — send message_delta for each AI chunk.
-				//
-				// 3. After the loop, check for another interrupt (same pattern as stream-hitl):
-				//      const state = await graph.getState(config)
-				//      const interrupt = state.tasks[0]?.interrupts?.[0]
-				//
-				// 3a. If interrupted again → send({ type: 'interrupt', intent: interrupt.value })
-				// 3b. Otherwise → send({ type: 'message_complete', id: uuidv4(), content, role: 'assistant' })
-				//
-				// 4. Always send done:
-				//       send({ type: 'done', threadId })
-				//
-				// ─────────────────────────────────────────────────────────────────────
-				throw new Error(
-					"Not implemented yet — complete Lesson 18 to add human-in-the-loop resume!",
-				);
+				// TODO (Lesson 18, Step 9): Resume graph with Command and detect interrupts
+				throw new Error("Not implemented — complete Lesson 18, Step 9!");
 			} catch (error) {
 				console.error("Error resuming graph:", error);
 				send({

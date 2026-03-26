@@ -46,29 +46,8 @@ export async function POST(req: Request) {
 				const config = { configurable: { thread_id: threadId } };
 				const input = { messages: [new HumanMessage(message)] };
 
-				// ─── TODO (L18): Stream tokens then detect interrupts ─────────────────
-				//
-				// 1. Stream tokens exactly like /api/stream (streamMode: 'messages'):
-				//      const streamResult = graph.stream(input, { ...config, streamMode: 'messages' })
-				//      Accumulate content, send message_delta for each AI token chunk.
-				//
-				// 2. After the loop, inspect graph state for an interrupt:
-				//      const state = await graph.getState(config)
-				//      const interrupt = state.tasks[0]?.interrupts?.[0]
-				//
-				// 3a. If interrupted → send interrupt event (not message_complete):
-				//       send({ type: 'interrupt', intent: interrupt.value })
-				//
-				// 3b. If not interrupted → send message_complete:
-				//       send({ type: 'message_complete', id: uuidv4(), content: accumulated, role: 'assistant' })
-				//
-				// 4. Always send done:
-				//       send({ type: 'done', threadId })
-				//
-				// ─────────────────────────────────────────────────────────────────────
-				throw new Error(
-					"Not implemented yet — complete Lesson 18 to add human-in-the-loop support!",
-				);
+					// TODO (Lesson 18, Step 8): Stream tokens, detect interrupt, send appropriate events
+				throw new Error("Not implemented — complete Lesson 18, Step 8!");
 			} catch (error) {
 				console.error("Error in stream-hitl:", error);
 				send({

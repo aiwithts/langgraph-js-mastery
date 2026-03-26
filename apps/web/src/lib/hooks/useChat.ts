@@ -129,7 +129,9 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 			setIsLoading(true);
 			setError(null);
 
-			// Create placeholder for assistant message
+			// Placeholder is NOT added immediately — it is added lazily on the
+			// first message_delta so that graphs which interrupt before producing
+			// any tokens (HITL planNode) don't leave an empty assistant bubble.
 			const assistantMessageId = `assistant-${Date.now()}`;
 			const assistantMessage: ChatMessage = {
 				id: assistantMessageId,
@@ -138,8 +140,6 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 				timestamp: new Date(),
 				isStreaming: true,
 			};
-
-			setMessages((prev) => [...prev, assistantMessage]);
 
 			// Create abort controller for cancellation
 			abortControllerRef.current = new AbortController();
@@ -224,13 +224,14 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 										// "[object Object]" instead of text. This guard silently skips
 										// non-string deltas so the UI stays clean.
 										accumulatedContent += typeof data.content === "string" ? data.content : "";
-										setMessages((prev) =>
-											prev.map((msg) =>
+										setMessages((prev) => {
+											const base = prev.at(-1)?.id === assistantMessageId ? prev : [...prev, assistantMessage];
+											return base.map((msg) =>
 												msg.id === assistantMessageId
 													? { ...msg, content: accumulatedContent }
 													: msg,
-											),
-										);
+											);
+										});
 										break;
 
 									// ─── UI Component Event ────────────────────────────
@@ -400,7 +401,7 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 			isStreaming: true,
 		};
 
-		setMessages((prev) => [...prev, assistantMessage]);
+		// Placeholder added lazily on first message_delta (same pattern as sendMessage).
 
 		abortControllerRef.current = new AbortController();
 
@@ -456,11 +457,12 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 									// assertion, not a conversion; this ensures non-string content blocks
 									// never reach the UI as "[object Object]".
 									accumulatedContent += typeof data.content === "string" ? data.content : "";
-									setMessages((prev) =>
-										prev.map((msg) =>
+									setMessages((prev) => {
+										const base = prev.at(-1)?.id === assistantMessageId ? prev : [...prev, assistantMessage];
+										return base.map((msg) =>
 											msg.id === assistantMessageId ? { ...msg, content: accumulatedContent } : msg,
-										),
-									);
+										);
+									});
 									break;
 
 								case "ui":
