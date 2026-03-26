@@ -18,23 +18,10 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // and reasoning (z.string) fields — each with a .describe() explanation
 
 // TODO (Lesson 20, Step 4): Define classifierNode
-// - Use llm.withStructuredOutput(ClassificationSchema) to classify the user request
-// - System prompt explains the three categories with clear examples:
-//   billing: payments, invoices, subscriptions, refunds
-//   technical: bugs, errors, API issues, how-to questions
-//   general: account info, policies, general inquiries
-// - Return: { category: result.category, confidence: result.confidence }
 
-// TODO (Lesson 20, Step 5): Define 4 handler nodes
-// Each has a specialized system prompt:
-//   billingHandler: billing specialist, empathetic about payment frustrations
-//   technicalHandler: technical expert, step-by-step solutions
-//   generalHandler: friendly customer service rep
-//   triageNode: asks clarifying question when confidence < 0.7
+// TODO (Lesson 20, Step 5): Define 4 handler nodes: billingHandler, technicalHandler, generalHandler, triageNode
 
 // TODO (Lesson 20, Step 6): Define routeByCategory
-// If confidence < 0.7 → "triage"
-// Switch on category: billing → "billingHandler", technical → "technicalHandler", else → "generalHandler"
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 20, Step 7): Build and compile the graph

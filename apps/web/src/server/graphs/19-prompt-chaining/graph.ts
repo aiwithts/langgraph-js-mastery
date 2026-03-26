@@ -12,16 +12,10 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // Add: draft, critique, refined — each Annotation<string> with replace reducer, default ""
 
 // TODO (Lesson 19, Step 3): Define draftNode
-// - Get the user's topic from state.messages.at(-1)
-// - Return: { draft: response.content }
 
 // TODO (Lesson 19, Step 4): Define critiqueNode
-// - Pass state.draft to the LLM
-// - Return: { critique: response.content }
 
 // TODO (Lesson 19, Step 5): Define refineNode
-// - Pass both state.draft and state.critique to the LLM
-// - Return: { refined: response.content, messages: [new AIMessage(refined)] }
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 19, Step 6): Build and compile the graph
