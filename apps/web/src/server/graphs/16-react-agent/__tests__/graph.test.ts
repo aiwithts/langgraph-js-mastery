@@ -11,9 +11,11 @@ vi.mock("../../../lib/llm", () => ({
 }));
 
 vi.mock("@langchain/mcp-adapters", () => ({
-	MultiServerMCPClient: vi.fn().mockReturnValue({
-		initializeConnections: vi.fn().mockResolvedValue(undefined),
-		getTools: vi.fn().mockReturnValue([]),
+	MultiServerMCPClient: vi.fn().mockImplementation(function () {
+		return {
+			initializeConnections: vi.fn().mockResolvedValue(undefined),
+			getTools: vi.fn().mockReturnValue([]),
+		};
 	}),
 }));
 
