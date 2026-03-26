@@ -41,10 +41,8 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // If confidence < 0.7 → "triage"
 // Switch on category: billing → "billingHandler", technical → "technicalHandler", else → "generalHandler"
 
-// TODO (Lesson 20, Step 7): Build graph
-// START → classifier → (routeByCategory) → billing|technical|general|triage → END
-
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
-	// TODO (Lesson 20, Step 8): Compile and return
+	// TODO (Lesson 20, Step 7): Build and compile the graph
+	// START → classifier → (routeByCategory) → billing|technical|general|triage → END
 	throw new Error("Not implemented — complete Lesson 20!");
 }
