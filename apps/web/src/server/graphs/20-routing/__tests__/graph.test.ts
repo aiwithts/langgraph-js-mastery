@@ -18,7 +18,7 @@ describe("Intent Classifier and Router", () => {
 		expect(mod.graph20Routing.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 20 to pass this test)", async () => {
+	it("creates a compilable graph", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph20Routing.createGraph();
 		expect(graph).toBeDefined();

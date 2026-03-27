@@ -18,7 +18,7 @@ describe("Draft Critique Refine Pipeline", () => {
 		expect(mod.graph19PromptChaining.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 19 to pass this test)", async () => {
+	it("creates a compilable graph", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph19PromptChaining.createGraph();
 		expect(graph).toBeDefined();

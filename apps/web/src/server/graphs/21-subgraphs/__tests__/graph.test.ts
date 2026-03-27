@@ -15,7 +15,7 @@ describe("Modular Subgraph Composition", () => {
 		expect(mod.graph21Subgraphs.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 21 to pass this test)", async () => {
+	it("creates a compilable graph", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph21Subgraphs.createGraph();
 		expect(graph).toBeDefined();

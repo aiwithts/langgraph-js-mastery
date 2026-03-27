@@ -18,7 +18,7 @@ describe("Parallel Map-Reduce Processor", () => {
 		expect(mod.graph22ParallelPatterns.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 22 to pass this test)", async () => {
+	it("creates a compilable graph", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph22ParallelPatterns.createGraph();
 		expect(graph).toBeDefined();
