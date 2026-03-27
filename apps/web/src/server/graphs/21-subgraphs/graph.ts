@@ -3,7 +3,11 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 21, Step 1): Add your imports
 
-// TODO (Lesson 21, Step 2): Define the subgraph state and implementation
+// TODO (Lesson 21, Step 2, Task 1): Define SubgraphState
+
+// TODO (Lesson 21, Step 2, Task 2): Define summarizeSubNode
+
+// TODO (Lesson 21, Step 2, Task 3): Build and compile the subgraph (no checkpointer)
 
 // TODO (Lesson 21, Step 3): Define ParentState
 
