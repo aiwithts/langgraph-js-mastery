@@ -2,6 +2,7 @@
 
 import { Bot, Loader2, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { DisplayIntentRenderer, UIComponentRenderer } from "@/components/intents";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
@@ -32,22 +33,31 @@ export function Message({ message }: MessageProps) {
 				</div>
 				<div className="prose prose-sm dark:prose-invert max-w-none">
 					<ReactMarkdown
+						remarkPlugins={[remarkGfm]}
 						components={{
-							pre: ({ children }) => (
-								<pre className="bg-muted rounded-lg p-3 overflow-x-auto">{children}</pre>
-							),
-							code: ({ className, children, ...props }) => {
-								const isInline = !className;
-								return isInline ? (
-									<code className="bg-muted px-1.5 py-0.5 rounded text-sm" {...props}>
+							p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+							pre: ({ children }) => <pre className="mb-2 last:mb-0">{children}</pre>,
+							code: ({ className, children }) => {
+								const isBlock = className?.startsWith("language-");
+								return isBlock ? (
+									<code
+										className={`block bg-black/10 dark:bg-white/10 rounded p-2 text-xs overflow-x-auto ${className ?? ""}`}
+									>
 										{children}
 									</code>
 								) : (
-									<code className={className} {...props}>
+									<code className="bg-black/10 dark:bg-white/10 rounded px-1 py-0.5 text-xs">
 										{children}
 									</code>
 								);
 							},
+							ul: ({ children }) => (
+								<ul className="mb-2 ml-4 list-disc last:mb-0">{children}</ul>
+							),
+							ol: ({ children }) => (
+								<ol className="mb-2 ml-4 list-decimal last:mb-0">{children}</ol>
+							),
+							li: ({ children }) => <li className="mb-0.5">{children}</li>,
 						}}
 					>
 						{message.content || (message.isStreaming ? "Thinking..." : "")}

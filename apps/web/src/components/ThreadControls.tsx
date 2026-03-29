@@ -1,20 +1,16 @@
 "use client";
 
-import { Loader2, Plus, Trash2 } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface ThreadControlsProps {
 	onNewThread: () => void;
-	onClearThread: () => void;
-	hasThread?: boolean;
 	loading?: boolean;
 	disabled?: boolean;
 }
 
 export function ThreadControls({
 	onNewThread,
-	onClearThread,
-	hasThread = false,
 	loading = false,
 	disabled = false,
 }: ThreadControlsProps) {
@@ -28,12 +24,6 @@ export function ThreadControls({
 				)}
 				New Thread
 			</Button>
-			{hasThread && (
-				<Button variant="ghost" size="sm" onClick={onClearThread} disabled={loading || disabled}>
-					<Trash2 className="h-4 w-4 mr-2" />
-					Clear
-				</Button>
-			)}
 		</div>
 	);
 }

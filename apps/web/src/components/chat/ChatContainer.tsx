@@ -122,11 +122,6 @@ export function ChatContainer() {
 		}
 	}, [selectedGraphId, createThread, clearMessages]);
 
-	// Handle clear thread
-	const handleClearThread = useCallback(() => {
-		clearMessages();
-	}, [clearMessages]);
-
 	// Auto-create thread if none exists when trying to send
 	const handleSendMessage = useCallback(
 		async (content: string) => {
@@ -160,8 +155,6 @@ export function ChatContainer() {
 					/>
 					<ThreadControls
 						onNewThread={handleNewThread}
-						onClearThread={handleClearThread}
-						hasThread={!!currentThreadId}
 						loading={creatingThread}
 						disabled={!selectedGraphId}
 					/>

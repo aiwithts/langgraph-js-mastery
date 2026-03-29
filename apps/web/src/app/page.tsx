@@ -1,15 +1,18 @@
 "use client";
 
 import { ChatContainer } from "@/components/chat/ChatContainer";
+import { Logo } from "@/components/layout/Logo";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 export default function Home() {
 	return (
-		<div className="container py-8">
-			<div className="mb-6 text-center">
-				<h1 className="text-3xl font-bold tracking-tight">LangGraph Training Ground</h1>
-				<p className="text-muted-foreground mt-2">
-					Experiment with LangGraph.js agents and multi-agent systems
-				</p>
+		<div className="min-h-screen bg-background px-4 py-8">
+			<div className="max-w-4xl mx-auto mb-6 flex items-center justify-between">
+				<div className="flex items-center gap-3">
+					<Logo />
+					<p className="text-muted-foreground text-sm">LangGraph.js Training Ground</p>
+				</div>
+				<ThemeToggle />
 			</div>
 			<ChatContainer />
 		</div>
