@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
-		invoke: vi.fn().mockResolvedValue(new AIMessage("Summary: This is about TypeScript...")),
+		invoke: vi.fn().mockResolvedValue(new AIMessage("This is about TypeScript concise summary")),
 	}),
 }));
 
