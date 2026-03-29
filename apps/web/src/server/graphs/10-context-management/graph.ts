@@ -17,6 +17,7 @@ const KEEP_RECENT = 5;
 // TODO (Lesson 10, Step 3): Define summarizeNode
 // - Get messages to summarize: state.messages.slice(0, -KEEP_RECENT)
 // - Ask LLM to write a concise summary of those old messages (max 8 sentences)
+// - Pass { tags: ["langsmith:nostream"] } as llm.invoke options (suppresses streaming, keeps LangSmith trace)
 // - Remove old messages from state using RemoveMessage({ id: m.id }) for each
 // - Return: { messages: deletions, summary: response.content }
 // Hint: config?.writer?.("Summarizing conversation...") to show progress

@@ -25,6 +25,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // - Get userId from config.configurable?.user_id ?? "default-user"
 // - Get the store from config.store (throw if missing)
 // - Use LLM with MemoryExtraction schema to extract facts from the last message
+// - Pass { tags: ["langsmith:nostream"] } to llm.invoke — suppresses streaming, keeps LangSmith trace
 // - Store each memory: store.put([userId, "memories"], generateMemoryId(), memory)
 // - Return: {}
 // Helper: function generateMemoryId() { return `memory-${Date.now()}-${Math.random().toString(36).slice(2,8)}`; }
