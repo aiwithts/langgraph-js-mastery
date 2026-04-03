@@ -41,12 +41,12 @@ export function Message({ message }: MessageProps) {
 								const isBlock = className?.startsWith("language-");
 								return isBlock ? (
 									<code
-										className={`block bg-black/10 dark:bg-white/10 rounded p-2 text-xs overflow-x-auto ${className ?? ""}`}
+										className={`block bg-muted text-foreground rounded p-2 text-xs overflow-x-auto font-mono ${className ?? ""}`}
 									>
 										{children}
 									</code>
 								) : (
-									<code className="bg-black/10 dark:bg-white/10 rounded px-1 py-0.5 text-xs">
+									<code className="bg-muted text-foreground rounded px-1 py-0.5 text-xs font-mono">
 										{children}
 									</code>
 								);
