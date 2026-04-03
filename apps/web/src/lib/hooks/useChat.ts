@@ -277,8 +277,12 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 										if (data.displayIntents) {
 											displayIntents = data.displayIntents;
 										}
-										setMessages((prev) =>
-											prev.map((msg) =>
+										setMessages((prev) => {
+											const base =
+												prev.at(-1)?.id === assistantMessageId
+													? prev
+													: [...prev, assistantMessage];
+											return base.map((msg) =>
 												msg.id === assistantMessageId
 													? {
 															...msg,
@@ -290,8 +294,8 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 															uiComponents: uiComponents.length > 0 ? uiComponents : undefined,
 														}
 													: msg,
-											),
-										);
+											);
+										});
 										break;
 
 									// ─── Interrupt (Human-in-the-Loop) ─────────────────
@@ -498,8 +502,12 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 									if (data.displayIntents) {
 										displayIntents = data.displayIntents;
 									}
-									setMessages((prev) =>
-										prev.map((msg) =>
+									setMessages((prev) => {
+										const base =
+											prev.at(-1)?.id === assistantMessageId
+												? prev
+												: [...prev, assistantMessage];
+										return base.map((msg) =>
 											msg.id === assistantMessageId
 												? {
 														...msg,
@@ -510,8 +518,8 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 														uiComponents: uiComponents.length > 0 ? uiComponents : undefined,
 													}
 												: msg,
-										),
-									);
+										);
+									});
 									break;
 
 								case "interrupt":
