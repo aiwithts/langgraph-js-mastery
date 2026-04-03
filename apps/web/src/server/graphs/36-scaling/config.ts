@@ -5,4 +5,5 @@ export const config: GraphInfo = {
 	name: "Production-Ready Agent",
 	description: "Capstone agent with PostgreSQL persistence, model routing by complexity, and all five production pillars.",
 	endpoint: "/api/stream-ui",
+	persistent: true,
 };

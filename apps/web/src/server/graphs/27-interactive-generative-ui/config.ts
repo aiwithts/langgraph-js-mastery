@@ -5,4 +5,5 @@ export const config: GraphInfo = {
 	name: "Interactive Booking Assistant",
 	description: "A restaurant booking assistant where UI components send actions back to the graph to drive multi-step reservation flows.",
 	endpoint: "/api/stream-ui",
+	persistent: true,
 };

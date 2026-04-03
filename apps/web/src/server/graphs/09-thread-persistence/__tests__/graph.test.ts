@@ -17,7 +17,7 @@ describe("Persistent Memory Tester", () => {
 		expect(mod.graph09ThreadPersistence.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 09 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 10 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph09ThreadPersistence.createGraph();
 		expect(graph).toBeDefined();

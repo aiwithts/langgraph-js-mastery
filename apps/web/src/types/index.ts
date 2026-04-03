@@ -8,6 +8,9 @@ export interface GraphInfo {
 	description: string;
 	endpoint: string;
 	resumeEndpoint?: string;
+	/** false (default) = stateless: frontend manages message history, no thread ID.
+	 *  true = persistent: checkpointer-backed, frontend sends new message + threadId only. */
+	persistent?: boolean;
 }
 
 // ============================================
@@ -170,7 +173,7 @@ export interface SSEError {
 
 export interface SSEDone {
 	type: "done";
-	threadId: string;
+	threadId?: string;
 	checkpointId?: string;
 }
 
@@ -189,10 +192,18 @@ export type SSEEvent =
 // Request types
 // ============================================
 
+/** Used by /api/stream-thread, /api/stream-hitl, /api/stream-ui, /api/resume */
 export interface InvokeRequest {
 	graphId: string;
 	threadId: string;
 	message: string;
+	config?: Record<string, unknown>;
+}
+
+/** Used by /api/invoke and /api/stream (stateless endpoints — no thread ID) */
+export interface StatelessRequest {
+	graphId: string;
+	messages: Array<{ role: string; content: string }>;
 	config?: Record<string, unknown>;
 }
 

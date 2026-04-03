@@ -68,8 +68,12 @@ interface UseChatOptions {
 	endpoint: string | undefined;
 	/** Endpoint URL for resuming interrupted graphs (e.g. "/api/resume") */
 	resumeEndpoint?: string | undefined;
-	/** Thread ID for conversation persistence */
+	/** Thread ID for conversation persistence (persistent graphs only) */
 	threadId: string | null;
+	/** Whether the graph uses server-side thread persistence.
+	 *  false (default): frontend sends full message history, no threadId required.
+	 *  true: frontend sends only the new message + threadId; backend loads prior state via checkpointer. */
+	persistent?: boolean;
 	/** Callback when a message is fully received */
 	onMessageComplete?: (message: ChatMessage) => void;
 }
@@ -88,7 +92,7 @@ interface UseChatOptions {
  * - `clearMessages` - Function to clear chat history
  * - `loadMessages` - Function to load existing messages
  */
-export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessageComplete }: UseChatOptions) {
+export function useChat({ graphId, endpoint, resumeEndpoint, threadId, persistent = false, onMessageComplete }: UseChatOptions) {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -104,13 +108,17 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 	endpointRef.current = endpoint;
 	const resumeEndpointRef = useRef(resumeEndpoint);
 	resumeEndpointRef.current = resumeEndpoint;
+	// For stateless mode: track current messages to build the full history payload
+	const messagesRef = useRef<ChatMessage[]>(messages);
+	messagesRef.current = messages;
 
 	const sendMessage = useCallback(
 		async (content: string, overrideThreadId?: string) => {
 			const effectiveThreadId = overrideThreadId ?? threadIdRef.current;
 			const effectiveGraphId = graphIdRef.current;
 			const effectiveEndpoint = endpointRef.current;
-			if (!effectiveGraphId || !effectiveThreadId || !effectiveEndpoint || !content.trim()) {
+			// Persistent graphs require a threadId; stateless graphs do not
+			if (!effectiveGraphId || (persistent && !effectiveThreadId) || !effectiveEndpoint || !content.trim()) {
 				return;
 			}
 
@@ -145,17 +153,26 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, onMessage
 			abortControllerRef.current = new AbortController();
 
 			try {
+				// Build request body based on persistence mode
+				const requestBody = persistent
+					? // Persistent: send only the new message + threadId; checkpointer loads history
+					  JSON.stringify({ graphId: effectiveGraphId, threadId: effectiveThreadId, message: content.trim() })
+					: // Stateless: send full conversation history (prior messages + new message)
+					  JSON.stringify({
+							graphId: effectiveGraphId,
+							messages: [
+								...messagesRef.current.map((m) => ({ role: m.role, content: m.content })),
+								{ role: "user", content: content.trim() },
+							],
+					  });
+
 				const response = await fetch(effectiveEndpoint, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 						Accept: "text/event-stream",
 					},
-					body: JSON.stringify({
-						graphId: effectiveGraphId,
-						threadId: effectiveThreadId,
-						message: content.trim(),
-					}),
+					body: requestBody,
 					signal: abortControllerRef.current.signal,
 				});
 

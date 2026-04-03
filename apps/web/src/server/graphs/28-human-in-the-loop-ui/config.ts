@@ -6,4 +6,5 @@ export const config: GraphInfo = {
 	description: "Emits rich approval cards before interrupting to collect explicit user sign-off on sensitive actions.",
 	endpoint: "/api/stream-ui",
 	resumeEndpoint: "/api/resume-ui",
+	persistent: true,
 };

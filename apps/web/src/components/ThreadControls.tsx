@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button";
 
 interface ThreadControlsProps {
 	onNewThread: () => void;
+	label?: string;
 	loading?: boolean;
 	disabled?: boolean;
 }
 
 export function ThreadControls({
 	onNewThread,
+	label = "New Thread",
 	loading = false,
 	disabled = false,
 }: ThreadControlsProps) {
@@ -22,7 +24,7 @@ export function ThreadControls({
 				) : (
 					<Plus className="h-4 w-4 mr-2" />
 				)}
-				New Thread
+				{label}
 			</Button>
 		</div>
 	);

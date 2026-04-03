@@ -36,6 +36,7 @@ export function ChatContainer() {
 
 	// Resolve the selected graph's endpoint info
 	const selectedGraph = graphs.find((g) => g.id === selectedGraphId);
+	const isPersistent = selectedGraph?.persistent ?? false;
 
 	// Fetch latest thread for selected graph
 	const {
@@ -66,6 +67,7 @@ export function ChatContainer() {
 		endpoint: selectedGraph?.endpoint,
 		resumeEndpoint: selectedGraph?.resumeEndpoint,
 		threadId: currentThreadId,
+		persistent: isPersistent,
 	});
 
 	// Auto-select first graph if none selected
@@ -75,17 +77,19 @@ export function ChatContainer() {
 		}
 	}, [graphs, selectedGraphId]);
 
-	// Set current thread when latest thread is loaded
+	// Set current thread when latest thread is loaded (persistent graphs only)
 	useEffect(() => {
+		if (!isPersistent) return;
 		if (latestThread && latestThread.graphId === selectedGraphId) {
 			setCurrentThreadId(latestThread.id);
 			// useMessages fetches automatically when currentThreadId changes — no
 			// manual refetch needed here.
 		}
-	}, [latestThread, selectedGraphId]);
+	}, [latestThread, selectedGraphId, isPersistent]);
 
-	// Load saved messages when thread changes
+	// Load saved messages when thread changes (persistent graphs only)
 	useEffect(() => {
+		if (!isPersistent) return;
 		if (savedMessages.length > 0) {
 			const chatMessages: ChatMessage[] = savedMessages.map((msg) => ({
 				id: msg.id,
@@ -95,7 +99,7 @@ export function ChatContainer() {
 			}));
 			loadMessages(chatMessages);
 		}
-	}, [savedMessages, loadMessages]);
+	}, [savedMessages, loadMessages, isPersistent]);
 
 	// Handle graph selection change
 	const handleGraphSelect = useCallback(
@@ -111,23 +115,35 @@ export function ChatContainer() {
 		[cancelRequest, clearMessages],
 	);
 
-	// Handle new thread creation
+	// Handle new thread / clear chat
 	const handleNewThread = useCallback(async () => {
 		if (!selectedGraphId) return;
+
+		if (!isPersistent) {
+			// Stateless: just clear local message history
+			clearMessages();
+			return;
+		}
 
 		const thread = await createThread(selectedGraphId);
 		if (thread) {
 			setCurrentThreadId(thread.id);
 			clearMessages();
 		}
-	}, [selectedGraphId, createThread, clearMessages]);
+	}, [selectedGraphId, isPersistent, createThread, clearMessages]);
 
-	// Auto-create thread if none exists when trying to send
+	// Send a message — for persistent graphs, auto-create a thread if none exists
 	const handleSendMessage = useCallback(
 		async (content: string) => {
 			if (!selectedGraphId) return;
 
-			// Create thread if needed
+			if (!isPersistent) {
+				// Stateless: send directly — no thread management needed
+				sendMessage(content);
+				return;
+			}
+
+			// Persistent: create thread if needed
 			if (!currentThreadId) {
 				const thread = await createThread(selectedGraphId);
 				if (thread) {
@@ -140,7 +156,7 @@ export function ChatContainer() {
 
 			sendMessage(content);
 		},
-		[selectedGraphId, currentThreadId, createThread, sendMessage],
+		[selectedGraphId, isPersistent, currentThreadId, createThread, sendMessage],
 	);
 
 	return (
@@ -153,11 +169,14 @@ export function ChatContainer() {
 						onSelect={handleGraphSelect}
 						loading={graphsLoading}
 					/>
-					<ThreadControls
-						onNewThread={handleNewThread}
-						loading={creatingThread}
-						disabled={!selectedGraphId}
-					/>
+					{messages.length > 0 && (
+						<ThreadControls
+							label={isPersistent ? "New Thread" : "Clear Chat"}
+							onNewThread={handleNewThread}
+							loading={isPersistent ? creatingThread : false}
+							disabled={!selectedGraphId}
+						/>
+					)}
 				</div>
 				{!isServerReady && !graphsLoading && (
 					<div className="flex items-center gap-2 text-muted-foreground text-sm mt-2">

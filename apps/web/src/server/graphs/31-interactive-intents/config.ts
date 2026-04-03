@@ -6,4 +6,5 @@ export const config: GraphInfo = {
 	description: "A trading assistant that chains interrupt() calls across selection, form, and confirmation steps in a multi-step wizard.",
 	endpoint: "/api/stream-ui",
 	resumeEndpoint: "/api/resume-ui",
+	persistent: true,
 };

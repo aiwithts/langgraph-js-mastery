@@ -5,4 +5,5 @@ export const config: GraphInfo = {
 	name: "LangGraph Platform UI",
 	description: "Demonstrates platform Generative UI using typedUi, useStream, and LoadExternalComponent.",
 	endpoint: "/api/stream-ui",
+	persistent: true,
 };

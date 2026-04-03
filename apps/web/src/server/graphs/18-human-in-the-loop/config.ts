@@ -6,4 +6,5 @@ export const config: GraphInfo = {
 	description: "Pauses execution with interrupt() for human approval before performing sensitive actions.",
 	endpoint: "/api/stream-hitl",
 	resumeEndpoint: "/api/resume",
+	persistent: true,
 };

@@ -5,4 +5,5 @@ export const config: GraphInfo = {
 	name: "Weather Display Intent Agent",
 	description: "Emits structured display intents from graph state so any frontend can render weather UI components.",
 	endpoint: "/api/stream-ui",
+	persistent: true,
 };

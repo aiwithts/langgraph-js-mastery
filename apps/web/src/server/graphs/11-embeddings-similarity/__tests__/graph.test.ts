@@ -24,7 +24,7 @@ describe("Semantic Example Selector", () => {
 		expect(mod.graph11EmbeddingsSimilarity.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 11 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 12 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph11EmbeddingsSimilarity.createGraph();
 		expect(graph).toBeDefined();

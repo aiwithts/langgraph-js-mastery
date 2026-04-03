@@ -5,4 +5,5 @@ export const config: GraphInfo = {
 	name: "Testable Agent",
 	description: "An agent using dependency injection and mocked LLMs for deterministic unit and integration tests.",
 	endpoint: "/api/stream-ui",
+	persistent: true,
 };
