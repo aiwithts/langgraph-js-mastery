@@ -17,12 +17,13 @@ export function getGraph(id: string): RegisteredGraph | undefined {
 }
 
 export function getAllGraphs(): GraphInfo[] {
-	return Array.from(graphRegistry.values()).map(({ id, name, description, endpoint, resumeEndpoint }) => ({
+	return Array.from(graphRegistry.values()).map(({ id, name, description, endpoint, resumeEndpoint, persistent }) => ({
 		id,
 		name,
 		description,
 		endpoint,
 		resumeEndpoint,
+		persistent,
 	}));
 }
 
