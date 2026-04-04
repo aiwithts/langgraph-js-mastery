@@ -108,6 +108,8 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, persisten
 	endpointRef.current = endpoint;
 	const resumeEndpointRef = useRef(resumeEndpoint);
 	resumeEndpointRef.current = resumeEndpoint;
+	const persistentRef = useRef(persistent);
+	persistentRef.current = persistent;
 	// For stateless mode: track current messages to build the full history payload
 	const messagesRef = useRef<ChatMessage[]>(messages);
 	messagesRef.current = messages;
@@ -118,7 +120,7 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, persisten
 			const effectiveGraphId = graphIdRef.current;
 			const effectiveEndpoint = endpointRef.current;
 			// Persistent graphs require a threadId; stateless graphs do not
-			if (!effectiveGraphId || (persistent && !effectiveThreadId) || !effectiveEndpoint || !content.trim()) {
+			if (!effectiveGraphId || (persistentRef.current && !effectiveThreadId) || !effectiveEndpoint || !content.trim()) {
 				return;
 			}
 
@@ -154,7 +156,7 @@ export function useChat({ graphId, endpoint, resumeEndpoint, threadId, persisten
 
 			try {
 				// Build request body based on persistence mode
-				const requestBody = persistent
+				const requestBody = persistentRef.current
 					? // Persistent: send only the new message + threadId; checkpointer loads history
 					  JSON.stringify({ graphId: effectiveGraphId, threadId: effectiveThreadId, message: content.trim() })
 					: // Stateless: send full conversation history (prior messages + new message)
