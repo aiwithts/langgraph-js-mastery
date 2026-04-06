@@ -21,12 +21,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Code Generator With Feedback Loop", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph25EvaluatorOptimizer.config.id).toBe("24-evaluator-optimizer");
+		expect(mod.graph25EvaluatorOptimizer.config.id).toBe("25-evaluator-optimizer");
 		expect(mod.graph25EvaluatorOptimizer.config.name).toBe("Code Generator With Feedback Loop");
 		expect(mod.graph25EvaluatorOptimizer.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 24 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 26 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph25EvaluatorOptimizer.createGraph();
 		expect(graph).toBeDefined();
