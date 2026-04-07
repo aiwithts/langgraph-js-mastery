@@ -46,8 +46,6 @@ export async function POST(req: Request) {
 	// TODO (Lesson 03, Step 3, Task 1): Create the TextEncoder and define send() inside the ReadableStream start callback
 
 	// TODO (Lesson 03, Step 3, Task 2): Create the graph and build the config object
-	//   const graph = await registeredGraph.createGraph();
-	//   const config = {};
 
 	// TODO (Lesson 03, Step 3, Task 3): Stream tokens with graph.stream() and send message_delta, message_complete, and done events
 

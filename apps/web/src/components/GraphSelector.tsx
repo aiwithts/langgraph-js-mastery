@@ -18,6 +18,11 @@ interface GraphSelectorProps {
 	disabled?: boolean;
 }
 
+function getLessonNumber(id: string): string {
+	const match = id.match(/^(\d+)-/);
+	return match ? match[1].padStart(2, "0") : "";
+}
+
 export function GraphSelector({
 	graphs,
 	selectedGraphId,
@@ -39,16 +44,23 @@ export function GraphSelector({
 	return (
 		<Select value={selectedGraphId ?? undefined} onValueChange={onSelect} disabled={disabled}>
 			<SelectTrigger className="w-[200px]">
-				<SelectValue placeholder="Select a graph...">{selectedGraph?.name}</SelectValue>
+				<SelectValue placeholder="Select a graph...">
+					{selectedGraph
+						? `Lesson ${getLessonNumber(selectedGraph.id)} — ${selectedGraph.name}`
+						: undefined}
+				</SelectValue>
 			</SelectTrigger>
 			<SelectContent className="w-[320px]">
 				{graphs.map((graph) => (
 					<SelectItem key={graph.id} value={graph.id} className="py-2">
-						<div className="flex flex-col gap-0.5">
-							<span className="font-medium">{graph.name}</span>
-							<span className="text-xs text-muted-foreground line-clamp-1">
-								{graph.description}
-							</span>
+						<div className="flex flex-col">
+							<div>
+								<span className="text-muted-foreground text-xs font-mono mr-1.5">
+									Lesson {getLessonNumber(graph.id)}
+								</span>
+								<span className="font-medium">{graph.name}</span>
+							</div>
+							<span className="text-muted-foreground text-xs">{graph.description}</span>
 						</div>
 					</SelectItem>
 				))}
