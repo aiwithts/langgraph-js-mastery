@@ -1,4 +1,4 @@
-// TODO (Lesson 14, Step 2): Define an expanded knowledge base
+// TODO (Lesson 15, Step 2): Define an expanded knowledge base
 // Same format as Lesson 13 but with more detailed documents.
 // You can reuse the same documents or expand them with more topics.
 

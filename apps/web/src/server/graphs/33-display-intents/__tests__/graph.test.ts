@@ -13,12 +13,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Weather Display Intent Agent", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph33DisplayIntents.config.id).toBe("30-display-intents");
+		expect(mod.graph33DisplayIntents.config.id).toBe("33-display-intents");
 		expect(mod.graph33DisplayIntents.config.name).toBe("Weather Display Intent Agent");
 		expect(mod.graph33DisplayIntents.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 30 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 34 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph33DisplayIntents.createGraph();
 		expect(graph).toBeDefined();

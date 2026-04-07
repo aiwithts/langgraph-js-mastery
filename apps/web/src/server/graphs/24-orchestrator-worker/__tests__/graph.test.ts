@@ -17,12 +17,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Multi-Agent Orchestrator", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph24OrchestratorWorker.config.id).toBe("23-orchestrator-worker");
+		expect(mod.graph24OrchestratorWorker.config.id).toBe("24-orchestrator-worker");
 		expect(mod.graph24OrchestratorWorker.config.name).toBe("Multi-Agent Orchestrator");
 		expect(mod.graph24OrchestratorWorker.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 23 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 25 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph24OrchestratorWorker.createGraph();
 		expect(graph).toBeDefined();

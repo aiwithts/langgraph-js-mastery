@@ -1,13 +1,19 @@
 import { AIMessage } from "@langchain/core/messages";
+import { RunnableLambda } from "@langchain/core/runnables";
 import { describe, expect, it, vi } from "vitest";
+
+const mockAIMessage = new AIMessage({
+	content: "I can help with your billing question. Your account is in good standing.",
+	tool_calls: [],
+});
+
+const mockBoundModel = RunnableLambda.from(async () => mockAIMessage);
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
-		invoke: vi
-			.fn()
-			.mockResolvedValue(
-				new AIMessage("I can help with your billing question. Your account is in good standing."),
-			),
+		invoke: vi.fn().mockResolvedValue(mockAIMessage),
+		_modelType: () => "base_chat_model",
+		bindTools: vi.fn().mockReturnValue(mockBoundModel),
 	}),
 }));
 

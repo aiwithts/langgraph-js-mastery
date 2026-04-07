@@ -10,12 +10,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Approval UI Assistant", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph31HumanInTheLoopUi.config.id).toBe("28-human-in-the-loop-ui");
+		expect(mod.graph31HumanInTheLoopUi.config.id).toBe("31-human-in-the-loop-ui");
 		expect(mod.graph31HumanInTheLoopUi.config.name).toBe("Approval UI Assistant");
 		expect(mod.graph31HumanInTheLoopUi.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 28 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 32 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph31HumanInTheLoopUi.createGraph();
 		expect(graph).toBeDefined();

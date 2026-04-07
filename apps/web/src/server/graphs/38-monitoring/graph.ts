@@ -1,7 +1,7 @@
 import type { CompiledGraph } from "../../types";
 import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
-// TODO (Lesson 34, Step 1): Add your imports
+// TODO (Lesson 39, Step 1): Add your imports
 // You'll need:
 //   import { AIMessage, SystemMessage } from "@langchain/core/messages";
 //   import { END, type LangGraphRunnableConfig, MessagesAnnotation, START, StateGraph } from "@langchain/langgraph";
@@ -10,11 +10,11 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 //   import { traceable } from "langsmith/traceable";
 //   Set env vars: LANGCHAIN_TRACING_V2=true, LANGCHAIN_API_KEY=ls__...
 
-// TODO (Lesson 34, Step 2): Define a simple metrics tracker
+// TODO (Lesson 39, Step 2): Define a simple metrics tracker
 // interface Metrics { totalRequests: number; totalTokensApprox: number; avgLatencyMs: number; }
 // const metrics: Metrics = { totalRequests: 0, totalTokensApprox: 0, avgLatencyMs: 0 };
 
-// TODO (Lesson 34, Step 3): Define observedAgentNode
+// TODO (Lesson 39, Step 3): Define observedAgentNode
 // - Record start time: const startTime = Date.now();
 // - Invoke the LLM (optionally wrap with traceable())
 // - Record end time and compute latency
@@ -23,14 +23,14 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 //   config.writer?.({ type: "state_update", node: "agent", state: { latencyMs, tokensApprox, totalRequests } })
 // - Return: { messages: [response] }
 
-// TODO (Lesson 34, Step 4): Define metricsNode
+// TODO (Lesson 39, Step 4): Define metricsNode
 // - Emit current metrics as a state_update event
 // - Log to console
 // - Return: {} (no state changes)
 
-// TODO (Lesson 34, Step 5): Build graph: START → observe → metrics → END
+// TODO (Lesson 39, Step 5): Build graph: START → observe → metrics → END
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
-	// TODO (Lesson 34, Step 6): Compile and return
-	throw new Error("Not implemented — complete Lesson 34!");
+	// TODO (Lesson 39, Step 6): Compile and return
+	throw new Error("Not implemented — complete Lesson 39!");
 }

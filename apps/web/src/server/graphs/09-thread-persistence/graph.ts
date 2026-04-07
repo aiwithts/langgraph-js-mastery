@@ -33,9 +33,12 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 //   Include known facts to personalize the response
 // - Return: { messages: [response] }
 
-// TODO (Lesson 10, Step 6): Build graph: START → extract → respond → END
+// TODO (Lesson 10, Step 6): Planning step — sketch the graph shape here (nodes + edges).
+// The actual runnable code (including .compile()) goes into Step 7 inside createGraph below.
+// Graph shape: START → extract → respond → END
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
-	// TODO (Lesson 10, Step 7): Compile with checkpointer (persistence requires it!)
+	// TODO (Lesson 10, Step 7): Build and compile the full graph with checkpointer (persistence requires it!)
+	// Use the structure you planned in Step 6 above, then call .compile({ checkpointer: checkpointer as any })
 	throw new Error("Not implemented — complete Lesson 10!");
 }

@@ -11,7 +11,7 @@
 //   - Tools and ToolNode
 
 export const KNOWLEDGE_BASE: Array<{ content: string; metadata: { source: string; topic: string } }> = [
-	// TODO: Add at least 5 knowledge documents about LangGraph.js
+	// TODO (Lesson 13, Step 2): Add at least 5 knowledge documents about LangGraph.js
 	// Example:
 	// {
 	//   content: "StateGraph is the core class in LangGraph...",

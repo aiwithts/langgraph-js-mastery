@@ -13,12 +13,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Multi-Step Interactive Wizard", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph34InteractiveIntents.config.id).toBe("31-interactive-intents");
+		expect(mod.graph34InteractiveIntents.config.id).toBe("34-interactive-intents");
 		expect(mod.graph34InteractiveIntents.config.name).toBe("Multi-Step Interactive Wizard");
 		expect(mod.graph34InteractiveIntents.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 31 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 35 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph34InteractiveIntents.createGraph();
 		expect(graph).toBeDefined();

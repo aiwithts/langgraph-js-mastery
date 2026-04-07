@@ -3,13 +3,12 @@ import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({
+		withStructuredOutput: vi.fn().mockReturnValue({
+			invoke: vi.fn().mockResolvedValue({ category: "billing" }),
+		}),
 		invoke: vi
 			.fn()
-			.mockResolvedValue(
-				new AIMessage(
-					'{"category":"billing","response":"I can help you with your billing question."}',
-				),
-			),
+			.mockResolvedValue(new AIMessage("I can help you with your billing question.")),
 	}),
 }));
 

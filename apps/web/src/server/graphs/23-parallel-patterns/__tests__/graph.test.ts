@@ -13,7 +13,7 @@ vi.mock("../../../lib/llm", () => ({
 describe("Parallel Map-Reduce Processor", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph23ParallelPatterns.config.id).toBe("22-parallel-patterns");
+		expect(mod.graph23ParallelPatterns.config.id).toBe("23-parallel-patterns");
 		expect(mod.graph23ParallelPatterns.config.name).toBe("Parallel Map-Reduce Processor");
 		expect(mod.graph23ParallelPatterns.createGraph).toBeInstanceOf(Function);
 	});

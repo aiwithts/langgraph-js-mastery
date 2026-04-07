@@ -17,7 +17,7 @@ describe("Application Structure & Deployment", () => {
 		expect(mod.graph42ApplicationStructure.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 43 to pass this test)", async () => {
+	it("creates a compilable graph", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph42ApplicationStructure.createGraph();
 		expect(graph).toBeDefined();

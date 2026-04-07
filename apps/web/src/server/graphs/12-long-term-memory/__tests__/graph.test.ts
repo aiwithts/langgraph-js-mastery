@@ -26,7 +26,7 @@ describe("Memory-Enhanced Assistant", () => {
 		expect(mod.graph12LongTermMemory.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 12 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 13 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph12LongTermMemory.createGraph();
 		expect(graph).toBeDefined();

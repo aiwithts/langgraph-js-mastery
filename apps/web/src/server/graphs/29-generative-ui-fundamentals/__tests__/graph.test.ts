@@ -13,12 +13,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Data Display Assistant", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph29GenerativeUiFundamentals.config.id).toBe("26-generative-ui-fundamentals");
+		expect(mod.graph29GenerativeUiFundamentals.config.id).toBe("29-generative-ui-fundamentals");
 		expect(mod.graph29GenerativeUiFundamentals.config.name).toBe("Data Display Assistant");
 		expect(mod.graph29GenerativeUiFundamentals.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 26 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 30 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph29GenerativeUiFundamentals.createGraph();
 		expect(graph).toBeDefined();

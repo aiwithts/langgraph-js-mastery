@@ -10,12 +10,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Observable Agent with Metrics", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph38Monitoring.config.id).toBe("34-monitoring");
+		expect(mod.graph38Monitoring.config.id).toBe("38-monitoring");
 		expect(mod.graph38Monitoring.config.name).toBe("Observable Agent with Metrics");
 		expect(mod.graph38Monitoring.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 34 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 39 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph38Monitoring.createGraph();
 		expect(graph).toBeDefined();

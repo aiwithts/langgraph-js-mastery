@@ -1,17 +1,17 @@
 import type { CompiledGraph } from "../../types";
 import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
-// TODO (Lesson 27, Step 1): Add your imports
+// TODO (Lesson 31, Step 1): Add your imports
 // You'll need:
 //   import { AIMessage, SystemMessage } from "@langchain/core/messages";
 //   import { Annotation, END, type LangGraphRunnableConfig, MessagesAnnotation, START, StateGraph } from "@langchain/langgraph";
 //   import { createLLM } from "../../lib/llm";
 
-// TODO (Lesson 27, Step 2): Define BookingState
+// TODO (Lesson 31, Step 2): Define BookingState
 // Annotation.Root({ ...MessagesAnnotation.spec })
 // Add: bookingData: Annotation<Record<string, unknown> | null> — reducer replaces, default null
 
-// TODO (Lesson 27, Step 3): Define intentDetectionNode
+// TODO (Lesson 31, Step 3): Define intentDetectionNode
 // - Analyze the user's request to detect booking intent
 // - If booking intent detected, dispatch a form UI event:
 //   config.writer?.({
@@ -33,19 +33,19 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // - Add a message asking the user to fill in the form
 // - Return: { messages: [formMessage] }
 
-// TODO (Lesson 27, Step 4): Define processBookingNode
+// TODO (Lesson 31, Step 4): Define processBookingNode
 // - Process state.bookingData (submitted form data)
 // - Confirm the booking with a summary message
 // - Return: { messages: [confirmationMessage] }
 
-// TODO (Lesson 27, Step 5): Define routeByBookingData
+// TODO (Lesson 31, Step 5): Define routeByBookingData
 // If state.bookingData is not null → "processBooking"
 // Else → "detectIntent"
 
-// TODO (Lesson 27, Step 6): Build graph
+// TODO (Lesson 31, Step 6): Build graph
 // START → (route: if bookingData exists → processBooking, else → detectIntent) → END
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
-	// TODO (Lesson 27, Step 7): Compile and return
-	throw new Error("Not implemented — complete Lesson 27!");
+	// TODO (Lesson 31, Step 7): Compile and return
+	throw new Error("Not implemented — complete Lesson 31!");
 }

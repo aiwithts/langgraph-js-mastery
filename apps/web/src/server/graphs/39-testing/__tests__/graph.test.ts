@@ -8,15 +8,15 @@ vi.mock("../../../lib/llm", () => ({
 	createLLM: vi.fn().mockReturnValue({ invoke: mockLLMInvoke }),
 }));
 
-describe("Lesson 35: Testable Agent", () => {
+describe("Lesson 40: Testable Agent", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph39Testing.config.id).toBe("35-testing");
+		expect(mod.graph39Testing.config.id).toBe("39-testing");
 		expect(mod.graph39Testing.config.name).toBe("Testable Agent");
 		expect(mod.graph39Testing.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 35 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 40 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph39Testing.createGraph();
 		expect(graph).toBeDefined();

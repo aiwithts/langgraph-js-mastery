@@ -10,12 +10,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Resilient Chat Agent", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph37ErrorHandling.config.id).toBe("33-error-handling");
+		expect(mod.graph37ErrorHandling.config.id).toBe("37-error-handling");
 		expect(mod.graph37ErrorHandling.config.name).toBe("Resilient Chat Agent");
 		expect(mod.graph37ErrorHandling.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 33 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 38 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph37ErrorHandling.createGraph();
 		expect(graph).toBeDefined();

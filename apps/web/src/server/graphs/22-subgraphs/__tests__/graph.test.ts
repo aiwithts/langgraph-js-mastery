@@ -10,7 +10,7 @@ vi.mock("../../../lib/llm", () => ({
 describe("Modular Subgraph Composition", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph22Subgraphs.config.id).toBe("21-subgraphs");
+		expect(mod.graph22Subgraphs.config.id).toBe("22-subgraphs");
 		expect(mod.graph22Subgraphs.config.name).toBe("Modular Subgraph Composition");
 		expect(mod.graph22Subgraphs.createGraph).toBeInstanceOf(Function);
 	});

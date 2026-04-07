@@ -23,7 +23,7 @@ describe("Hybrid Retrieval RAG Assistant", () => {
 		expect(mod.graph14AdvancedRag.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 14 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 15 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph14AdvancedRag.createGraph();
 		expect(graph).toBeDefined();

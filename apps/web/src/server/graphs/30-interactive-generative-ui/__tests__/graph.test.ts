@@ -10,12 +10,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Interactive Booking Assistant", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph30InteractiveGenerativeUi.config.id).toBe("27-interactive-generative-ui");
+		expect(mod.graph30InteractiveGenerativeUi.config.id).toBe("30-interactive-generative-ui");
 		expect(mod.graph30InteractiveGenerativeUi.config.name).toBe("Interactive Booking Assistant");
 		expect(mod.graph30InteractiveGenerativeUi.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 27 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 31 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph30InteractiveGenerativeUi.createGraph();
 		expect(graph).toBeDefined();

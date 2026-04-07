@@ -16,12 +16,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Director and Team Leads", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph26HierarchicalTeams.config.id).toBe("25-hierarchical-teams");
+		expect(mod.graph26HierarchicalTeams.config.id).toBe("26-hierarchical-teams");
 		expect(mod.graph26HierarchicalTeams.config.name).toBe("Director and Team Leads");
 		expect(mod.graph26HierarchicalTeams.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 25 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 27 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph26HierarchicalTeams.createGraph();
 		expect(graph).toBeDefined();

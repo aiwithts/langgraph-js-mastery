@@ -10,15 +10,15 @@ vi.mock("../../../lib/llm", () => ({
 	}),
 }));
 
-describe("Lesson 36: Production-Ready Agent", () => {
+describe("Lesson 42: Production-Ready Agent", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph41Scaling.config.id).toBe("36-scaling");
+		expect(mod.graph41Scaling.config.id).toBe("41-scaling");
 		expect(mod.graph41Scaling.config.name).toBe("Production-Ready Agent");
 		expect(mod.graph41Scaling.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 36 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 42 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph41Scaling.createGraph();
 		expect(graph).toBeDefined();

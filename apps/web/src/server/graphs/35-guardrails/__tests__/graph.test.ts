@@ -10,12 +10,12 @@ vi.mock("../../../lib/llm", () => ({
 describe("Layered Security Agent", () => {
 	it("exports a valid module with config and createGraph", async () => {
 		const mod = await import("../index");
-		expect(mod.graph35Guardrails.config.id).toBe("32-guardrails");
+		expect(mod.graph35Guardrails.config.id).toBe("35-guardrails");
 		expect(mod.graph35Guardrails.config.name).toBe("Layered Security Agent");
 		expect(mod.graph35Guardrails.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 32 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 36 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph35Guardrails.createGraph();
 		expect(graph).toBeDefined();
