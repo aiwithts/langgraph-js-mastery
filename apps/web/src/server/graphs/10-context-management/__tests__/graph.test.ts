@@ -21,7 +21,7 @@ describe("Conversation Summarization Chatbot", () => {
 		expect(mod.shouldSummarize({ messages: new Array(5) })).toBe("chat");
 	});
 
-	it("creates a compilable graph (complete Lesson 10 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 11 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph10ContextManagement.createGraph();
 		expect(graph).toBeDefined();

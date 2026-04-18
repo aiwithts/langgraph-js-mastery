@@ -26,7 +26,7 @@ describe("ReAct Reasoning Agent", () => {
 		expect(mod.graph16ReactAgent.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 16 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 17 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph16ReactAgent.createGraph();
 		expect(graph).toBeDefined();

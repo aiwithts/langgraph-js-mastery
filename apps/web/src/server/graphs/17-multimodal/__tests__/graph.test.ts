@@ -15,7 +15,7 @@ describe("Vision Analysis Agent", () => {
 		expect(mod.graph17Multimodal.createGraph).toBeInstanceOf(Function);
 	});
 
-	it("creates a compilable graph (complete Lesson 17 to pass this test)", async () => {
+	it("creates a compilable graph (complete Lesson 18 to pass this test)", async () => {
 		const mod = await import("../index");
 		const graph = await mod.graph17Multimodal.createGraph();
 		expect(graph).toBeDefined();

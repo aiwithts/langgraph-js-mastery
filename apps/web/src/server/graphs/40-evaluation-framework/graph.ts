@@ -6,9 +6,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // Annotation, END, MessagesAnnotation, START, StateGraph from "@langchain/langgraph"
 // z from "zod", and createLLM from "../../lib/llm"
 
-// TODO (Lesson 41, Step 2): Define RouterState
-// Extend MessagesAnnotation.spec to add: category (Annotation<string>, default "")
-// and response (Annotation<string>, default "")
+// TODO (Lesson 41, Step 2): Define RouterState extending MessagesAnnotation.spec with category and response fields.
 
 // TODO (Lesson 41, Step 3): Define classifyNode
 // Use createLLM({ temperature: 0 }).withStructuredOutput(z.object({ category: z.enum([...]) }))

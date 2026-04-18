@@ -7,7 +7,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 //   import { Annotation, END, MessagesAnnotation, START, StateGraph } from "@langchain/langgraph";
 //   import { createLLM } from "../../lib/llm";
 
-// TODO (Lesson 42, Step 2): Validate environment at module load time
+// TODO (Lesson 42, Step 2): Define validateEnvironment() and call it inside createGraph()
 // function validateEnvironment() {
 //   const required = ["DATABASE_URL"];
 //   const optional = ["OPENAI_API_KEY", "ANTHROPIC_API_KEY"];
@@ -16,7 +16,8 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 //   const hasLLM = optional.some(key => process.env[key]);
 //   if (!hasLLM) throw new Error("Set OPENAI_API_KEY or ANTHROPIC_API_KEY");
 // }
-// validateEnvironment();  // Uncomment after implementation
+// Call validateEnvironment() at the top of createGraph() — NOT at module load time.
+// Calling it outside a function causes all tests to fail (test runner has no API keys set).
 
 // TODO (Lesson 42, Step 3): Define model routing based on task type
 // Different tasks benefit from different models:
@@ -39,8 +40,10 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 42, Step 5): Define classifyNode (fast/cheap model)
 // - Classify the user's request: simple question, complex reasoning, or content generation
-// - Use structuredOutput: { taskType: z.enum(["classify", "reason", "generate"]) }
-// - Return: { taskType: result.taskType }
+// - Add: import { z } from "zod"
+// - Use: createLLM().withStructuredOutput(z.object({ taskType: z.enum(["classify", "reason", "generate"]) }))
+//   NOTE: z.object(...) wrapper is required — a plain object literal causes a 400 API error
+// - Invoke with a system message + state.messages, return: { taskType: result.taskType }
 
 // TODO (Lesson 42, Step 6): Define reasoningNode (powerful model)
 // - Use the model appropriate for reasoning tasks

@@ -1,8 +1,8 @@
-// TODO (Lesson 15, Step 3): Set up a hybrid retriever combining:
-//   1. BM25 keyword retriever (from "@langchain/community/retrievers/bm25")
-//   2. Vector store retriever (vectorStore.asRetriever({ k }))
-//   3. EnsembleRetriever (from "@langchain/classic/retrievers/ensemble")
-//      - Combines BM25 (weight 0.3) and vector retriever (weight 0.7)
+import type { EnsembleRetriever } from "@langchain/classic/retrievers/ensemble";
+
+// TODO (Lesson 15, Step 3): Build a singleton-cached hybrid retriever in getRetriever().
+// Use the imports listed below. Cache the result in a module-level variable so it is
+// only initialised once.
 //
 // You'll need:
 //   import { EnsembleRetriever } from "@langchain/classic/retrievers/ensemble";
@@ -12,6 +12,6 @@
 //   import { OpenAIEmbeddings } from "@langchain/openai";
 //   import { KNOWLEDGE_BASE } from "./knowledge";
 
-export async function getRetriever(k: number = 3): Promise<any> {
+export async function getRetriever(k: number = 3): Promise<EnsembleRetriever> {
 	throw new Error("Not implemented — complete Lesson 15! Set up your hybrid retriever in vector-store.ts");
 }

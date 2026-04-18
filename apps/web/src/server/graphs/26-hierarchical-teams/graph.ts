@@ -46,9 +46,8 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 //   - Return: { finalReport: report, messages: [response] } — use the response object, not new AIMessage(report)
 
 // TODO (Lesson 27, Step 6): Build graph
-// Option A (sequential): START → director → design → engineering → marketing → synthesis → END
-// Option B (parallel): Use Send API to call design, engineering, marketing in parallel
-// Start with sequential (simpler), then try parallel as a bonus
+// Wire all nodes with fixed sequential edges:
+// START → director → design → engineering → marketing → synthesis → END
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 27, Step 7): Compile and return

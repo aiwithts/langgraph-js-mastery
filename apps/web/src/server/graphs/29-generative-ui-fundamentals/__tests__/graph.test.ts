@@ -28,9 +28,24 @@ describe("Data Display Assistant", () => {
 		const { HumanMessage } = await import("@langchain/core/messages");
 		const mod = await import("../index");
 		const graph = await mod.graph29GenerativeUiFundamentals.createGraph();
-		const result = await graph.invoke({
-			messages: [new HumanMessage("Show me an info card about LangGraph")],
+
+		const uiEvents: unknown[] = [];
+		const writerFn = vi.fn((event: unknown) => {
+			uiEvents.push(event);
 		});
+
+		const result = await graph.invoke(
+			{ messages: [new HumanMessage("Show me an info card about LangGraph")] },
+			{ configurable: {}, writer: writerFn },
+		);
+
 		expect(result.messages.length).toBeGreaterThan(1);
+		expect(writerFn).toHaveBeenCalled();
+		const uiEvent = uiEvents.find(
+			(e) => typeof e === "object" && e !== null && (e as Record<string, unknown>).type === "ui",
+		);
+		expect(uiEvent).toBeDefined();
+		expect((uiEvent as Record<string, unknown>).component).toBeDefined();
+		expect((uiEvent as Record<string, unknown>).props).toBeDefined();
 	});
 });

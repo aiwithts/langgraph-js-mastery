@@ -3,9 +3,8 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 31, Step 1): Add your imports
 // You'll need:
-//   import { AIMessage, SystemMessage } from "@langchain/core/messages";
+//   import { AIMessage } from "@langchain/core/messages";
 //   import { Annotation, END, type LangGraphRunnableConfig, MessagesAnnotation, START, StateGraph } from "@langchain/langgraph";
-//   import { createLLM } from "../../lib/llm";
 
 // TODO (Lesson 31, Step 2): Define BookingState
 // Annotation.Root({ ...MessagesAnnotation.spec })

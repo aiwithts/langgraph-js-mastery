@@ -41,8 +41,15 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // TODO (Lesson 13, Step 7): Create the InMemoryStore with embeddings at module level (outside createGraph)
 // Use: new InMemoryStore({ index: { dims: 1536, embeddings: new OpenAIEmbeddings(...) } })
 
-// TODO (Lesson 13, Step 8): Build graph: START → extract → retrieve → chat → END
-// (This is a conceptual preview — wire the full graph inside createGraph in Step 9)
+// Step 8 reference — sequential pipeline you will wire inside createGraph in Step 9:
+// new StateGraph(MemoryState)
+//   .addNode("extract", extractAndStoreNode)
+//   .addNode("retrieve", retrieveMemoriesNode)
+//   .addNode("chat", chatNode)
+//   .addEdge(START, "extract")
+//   .addEdge("extract", "retrieve")
+//   .addEdge("retrieve", "chat")
+//   .addEdge("chat", END)
 
 export function createGraph(checkpointer?: PostgresSaver): CompiledGraph {
 	// TODO (Lesson 13, Step 9): Compile and return with store

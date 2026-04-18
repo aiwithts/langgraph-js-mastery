@@ -4,7 +4,7 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 // TODO (Lesson 32, Step 1): Add your imports
 // You'll need:
 //   import { AIMessage, SystemMessage } from "@langchain/core/messages";
-//   import { Annotation, Command, END, type LangGraphRunnableConfig, MessagesAnnotation, START, StateGraph, interrupt } from "@langchain/langgraph";
+//   import { Annotation, END, type LangGraphRunnableConfig, MessagesAnnotation, START, StateGraph, interrupt } from "@langchain/langgraph";
 //   import { createLLM } from "../../lib/llm";
 
 // TODO (Lesson 32, Step 2): Define ApprovalUIState
@@ -32,8 +32,8 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 
 // TODO (Lesson 32, Step 4): Define humanApprovalNode (interrupt point)
 // - Use interrupt() with the pending action details
-// - Use Command to update approved based on the human's decision
-// - The human's response (from resume) should be "yes" or "no"
+// - The human's response (from resume) will be "yes" or "no"
+// - Return { approved } based on whether the response is "yes"
 
 // TODO (Lesson 32, Step 5): Define executeNode and cancelNode
 // executeNode: dispatch a success UI event + message

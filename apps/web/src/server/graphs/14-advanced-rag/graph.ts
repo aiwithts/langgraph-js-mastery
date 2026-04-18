@@ -8,12 +8,12 @@ import type { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
 //   import { createLLM } from "../../lib/llm";
 //   import { getRetriever } from "./vector-store";
 
-// TODO (Lesson 15, Step 4): Define RAGState (same as Lesson 13)
+// TODO (Lesson 15, Step 4): Define RAGState (same as Lesson 14)
 // Add: context: string, sources: string[]
 
-// TODO (Lesson 15, Step 5): Define retrieveNode (same as Lesson 13 but uses hybrid retriever)
+// TODO (Lesson 15, Step 5): Define retrieveNode (same as Lesson 14 but uses hybrid retriever)
 
-// TODO (Lesson 15, Step 6): Define generateNode (same as Lesson 13)
+// TODO (Lesson 15, Step 6): Define generateNode (same as Lesson 14)
 
 // TODO (Lesson 15, Step 7, Task 1): Build graph: START → retrieve → generate → END
 
